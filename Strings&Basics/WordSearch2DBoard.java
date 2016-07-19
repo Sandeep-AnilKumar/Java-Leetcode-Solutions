@@ -1,3 +1,4 @@
+package String;
 
 public class WordSearch2DBoard {
 

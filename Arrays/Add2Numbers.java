@@ -17,40 +17,35 @@ public class Add2Numbers {
 
 		l3.next = l4;
 
-		System.out.println("The addition of the two lists in reverse order is");
-
-		MyNode result = AddLists(l1,l3);
+		MyNode result = addTwoNumbers(l1,l3);
 	}
 
-	public static MyNode AddLists(MyNode l1, MyNode l2){
-
-		MyNode newhead = new MyNode(0);
-		MyNode l3 = newhead;
-		int carry = 0;
-
-		while(l1 != null || l2 != null)
-		{
-			if(l1 != null)
-			{
-				carry += l1.val;
-				l1 = l1.next;
-			}
-
-			if(l2 != null)
-			{
-				carry += l2.val;
-				l2 = l2.next;
-			}
-
-			l3.next = new MyNode(carry % 10);
-			l3 = l3.next;
-			carry /= 10;
+	public static MyNode addTwoNumbers(MyNode l1, MyNode l2) {
+		if(l1 == null) {
+			return l2;
+		}
+		if(l2 == null) {
+			return l1;
 		}
 
-		if(carry == 1){
-			l3.next = new MyNode(1);
+		MyNode cur1 = l1, cur2 = l2, result = new MyNode(-1), curResult = result;
+
+		int sum = 0, carry = 0;
+
+		while(cur1 != null || cur2 != null) {
+			sum = (cur1 == null ? 0 : cur1.val) + (cur2 == null ? 0 : cur2.val) + carry;
+			carry = sum / 10;
+			sum %= 10;
+
+			curResult.next = new MyNode(sum);
+			curResult = curResult.next;
+			cur1 = cur1 == null ? null : cur1.next;
+			cur2 = cur2 == null ? null : cur2.next;
 		}
 
-		return newhead.next;
+		if(carry == 1) {
+			curResult.next = new MyNode(carry);
+		}
+		return result.next;
 	}
 }
