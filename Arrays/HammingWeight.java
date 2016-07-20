@@ -52,3 +52,21 @@ public class HammingWeight {
  * that means Integer.MAX_VALUE+1==Integer.MIN_VALUE).
  * 
  * */
+
+//And the fastest approach is: -
+/*
+ * int ret;
+    ret = (num & 0x55555555)
+        + ((num >> 1) & 0x55555555);
+    ret = (ret & 0x33333333)
+        + ((ret >> 2) & 0x33333333);
+    ret = (ret & 0x0F0F0F0F)
+        + ((ret >> 4) & 0x0F0F0F0F);
+    ret = (ret & 0x00FF00FF)
+        + ((ret >> 8) & 0x00FF00FF);
+    ret = (ret & 0x0000FFFF)
+        + ((ret >> 16) & 0x0000FFFF);
+    return ret;
+ * 
+ * */
+ */
