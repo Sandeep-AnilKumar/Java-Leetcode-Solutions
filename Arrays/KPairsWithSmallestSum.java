@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.TreeMap;
 
 public class KPairsWithSmallestSum {
@@ -25,7 +26,7 @@ public class KPairsWithSmallestSum {
 
 	public static List<int[]> findKPairsWithSmallestSum(int[] nums1, int[] nums2, int k) {
 		List<int[]> ret = new ArrayList<int[]>();
-		if (nums1.length == 0 || nums2.length == 0 || k == 0) {
+		if (nums1 == null || nums2 == null || nums1.length == 0 || nums2.length == 0 || k == 0) {
 			return ret;
 		}
 
@@ -50,5 +51,26 @@ public class KPairsWithSmallestSum {
 			index[in]++;
 		}
 		return ret;
-	}
+	}// Complexity O(k * m), m is the length of nums1.
+
+	public static List<int[]> findKPairsWithSmallestSum1(int[] nums1, int[] nums2, int k) {
+
+		List<int[]> result = new ArrayList<int[]>();
+		if (nums1 == null || nums2 == null || nums1.length == 0 || nums2.length == 0 || k == 0) {
+			return result;
+		}
+
+		PriorityQueue<int[]> queue = new PriorityQueue<>((int[] a, int[] b) -> a[0]+a[1]-b[0]-b[1]);
+		for(int i=0; i<nums1.length && i<k; i++) {
+			queue.offer(new int[]{nums1[i], nums2[0], 0});
+		}
+		while(k-- > 0 && !queue.isEmpty()){
+			int[] cur = queue.poll();
+			result.add(new int[]{cur[0], cur[1]});
+			if(cur[2] == nums2.length-1) continue;
+			queue.offer(new int[]{cur[0],nums2[cur[2]+1], cur[2]+1});
+		}
+		return result;
+	}//Complexity: - O(klogk);
+
 }
