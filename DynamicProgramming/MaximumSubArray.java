@@ -17,4 +17,21 @@ public class MaximumSubArray {
 		}
 		return sum;
 	}
+
+	//better understanding dp solution.
+	public static int maxSubArray1(int[] nums) {
+		if(nums == null || nums.length == 0) {
+			return 0;
+		}
+
+		int length = nums.length;
+		int[] dp = new int[length];
+		dp[0] = nums[0];
+		int max = nums[0];
+		for(int i = 1; i < length; ++i) {
+			dp[i] = Math.max(dp[i-1] + nums[i], nums[i]);
+			max = Math.max(max, dp[i]);
+		}
+		return max;
+	}
 }
