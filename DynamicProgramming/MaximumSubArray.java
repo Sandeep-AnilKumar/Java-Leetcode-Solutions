@@ -16,7 +16,7 @@ public class MaximumSubArray {
 			sum = Math.max(sum,max);
 		}
 		return sum;
-	}
+	}//O(1) space.
 
 	//better understanding dp solution.
 	public static int maxSubArray1(int[] nums) {
@@ -33,5 +33,5 @@ public class MaximumSubArray {
 			max = Math.max(max, dp[i]);
 		}
 		return max;
-	}
+	}//O(n) space.
 }
