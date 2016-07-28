@@ -1,4 +1,4 @@
-package DynamicProgramming;
+package Arrays;
 
 public class MaximumSubArray {
 
