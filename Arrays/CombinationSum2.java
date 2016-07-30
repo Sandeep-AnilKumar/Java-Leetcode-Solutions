@@ -8,10 +8,10 @@ import java.util.List;
 public class CombinationSum2 {
 
 	public static void main(String[] args) {
-		int[] nums = new int[]{10,1,2,7,6,1,5};
+		int[] nums = new int[]{10, 1, 2, 7, 6, 1, 5};
 		int target = 8;
 
-		List<List<Integer>> subset = subsets(nums,target);
+		List<List<Integer>> subset = subsets1(nums,target);
 		System.out.println("The combination sums are: \n[");
 		for(Iterator<List<Integer>> i = subset.iterator(); i.hasNext();)
 		{
@@ -64,4 +64,36 @@ public class CombinationSum2 {
 		}
 		return comboResult;
 	}// TLE Version.
+
+	//Better one.
+
+	public static List<List<Integer>> subsets1(int[] nums, int target) {
+		List<List<Integer>> result = new ArrayList<>();
+		if(nums == null || nums.length == 0) {
+			return result;
+		}
+		Arrays.sort(nums);
+		List<Integer> curPath = new ArrayList<>();
+		dfs(nums, target, curPath, 0, result);
+		return result;
+	}
+
+	public static void dfs(int[] nums, int target, List<Integer> curPath, int start, List<List<Integer>> result) {
+		if(target == 0) {
+			result.add(new ArrayList<Integer>(curPath));
+			return;
+		}
+		if(target < 0) {
+			return;
+		}
+
+		for(int i = start; i < nums.length; ++i) {
+			if (i > start && nums[i] == nums[i-1]) {
+				continue;
+			}
+			curPath.add(nums[i]);
+			dfs(nums, target - nums[i], curPath, i+1, result);
+			curPath.remove(curPath.size() - 1);
+		}
+	}
 }
