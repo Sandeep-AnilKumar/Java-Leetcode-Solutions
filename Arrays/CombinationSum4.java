@@ -44,7 +44,7 @@ public class CombinationSum4 {
 	//A better solution. Similar to Climbing stairs problem. But in that we have only two choices, 1 and 2. Here the choices are
 	//numbers in the nums array.
 	public static int combinationSum41(int[] nums, int target) {
-		if(nums == null || nums.length == 0 || target <= 0) {
+		if(nums == null || nums.length == 0 || target < 0) {
 			return 0;
 		}
 		Arrays.sort(nums); //Not required, but can help in exit out of loop early.
