@@ -16,13 +16,13 @@ public class IsUglyNumber {
 		}
 
 		int temp = num;
-		while(temp > 1 && temp % 2 == 0) {
+		while(temp % 2 == 0) {
 			temp >>>= 1;
 		}
-		while(temp > 1 && temp % 3 == 0) {
+		while(temp % 3 == 0) {
 			temp /= 3;
 		}
-		while(temp > 1 && temp % 5 == 0) {
+		while(temp % 5 == 0) {
 			temp /= 5;
 		}
 		return (temp == 1);
