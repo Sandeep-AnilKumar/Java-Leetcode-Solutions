@@ -9,9 +9,9 @@ public class MaxInEverySubarrayWindow {
 
 	public static void main(String[] args) {
 		int[] nums = new int[]{1,-2,5,6,0,9,8,-1,2,0};
-		Integer[] result = maxsInEveryWindows(nums, 3);
+		int[] result = maxSlidingWindow(nums, 3);
 		for(int num : result) {
-			System.out.println(num);
+			System.out.print(num + ", ");
 		}
 
 	}
@@ -52,4 +52,31 @@ public class MaxInEverySubarrayWindow {
 		return result.toArray(new Integer[0]);
 	}
 
+	//Other solution
+
+	public static int[] maxSlidingWindow(int[] nums, int k) {
+		if(nums == null || nums.length == 0) {
+			return new int[]{};
+		}
+
+		int length = nums.length;
+		int[] leftMax = new int[length];
+		int[] rightMax = new int[length];
+
+		leftMax[0] = nums[0];
+		rightMax[length - 1] = nums[length - 1];
+
+		for(int i = 1; i < length; ++i) {
+			leftMax[i] = (i % k == 0) ? nums[i] : Math.max(leftMax[i-1], nums[i]);
+			rightMax[length - 1 - i] = ((length - 1 - i) % k == 0) ? nums[length - 1 - i] : 
+				Math.max(rightMax[length - i],nums[length - 1 - i]);
+		}
+
+		int[] res = new int[length - k + 1];
+
+		for(int i = 0; i < length - k + 1; ++i) {
+			res[i] = Math.max(leftMax[i + k - 1], rightMax[i]);
+		}
+		return res;
+	}
 }
