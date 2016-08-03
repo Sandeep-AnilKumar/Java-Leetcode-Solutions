@@ -3,47 +3,46 @@ package Arrays;
 public class NumberOfIslands {
 	public static void main(String[] args) {
 		char matrix[][] = new char[][]{{'1','1','0','0'},
-			{'1','1','0','0'},
-			{'0','0','1','0'},
-			{'0','1','0','0'}};
-			System.out.println(numberOfIslands(matrix));
+				{'1','1','0','0'},
+				{'0','0','1','0'},
+				{'0','1','0','0'}};
+		System.out.println(numIslands(matrix));
 	}
 
-	public static int numberOfIslands(char grid[][]) {
-		if(grid == null)
+	public static int numIslands(char[][] grid) {
+		if(grid == null || grid.length == 0) {
 			return 0;
+		}
 
-		int n = grid.length;
-		if(n == 0)
-			return 0;
+		int row = grid.length;
+		int column =grid[0].length;
+		int sum = 0;
 
-		int m = grid[0].length;
-		int count = 0;
-
-		for(int i = 0; i < n; i++) {
-			for(int j = 0; j < m; j++) {
+		for(int i = 0; i < row; ++i) {
+			for(int j = 0; j < column; ++j) {
 				if(grid[i][j] == '1') {
-					count++;
-					sinkTheIsland(grid, i , j);
+					sum ++;
+					findIslands(grid, i, j);
 				}
 			}
 		}
-		return count;
+		return sum;
 	}
 
-	public static void sinkTheIsland(char matrix[][], int i, int j) {
-		if(i < 0 || j < 0 || i >= matrix.length || j >= matrix[0].length) {
+	public static void findIslands(char[][] grid, int i , int j) {
+		if(i < 0 || j < 0 || i > grid.length - 1 || j > grid[0].length - 1) {
 			return;
 		}
 
-		if(matrix[i][j] == '0')
+		if(grid[i][j] == '0') {
 			return;
+		}
 
-		matrix[i][j] = '0';
+		grid[i][j] = '0';
+		findIslands(grid, i+1, j);
+		findIslands(grid, i-1, j);
+		findIslands(grid, i, j+1);
+		findIslands(grid, i, j-1);
 
-		sinkTheIsland(matrix, i+1, j);
-		sinkTheIsland(matrix, i-1, j);
-		sinkTheIsland(matrix, i, j+1);
-		sinkTheIsland(matrix, i, j-1);
 	}
 }
