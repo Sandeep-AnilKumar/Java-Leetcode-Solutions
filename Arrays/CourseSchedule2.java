@@ -12,17 +12,17 @@ public class CourseSchedule2 {
 	public static void main(String[] args) {
 		int prerequisites[][] = new int[][]{{1,0},{0,2},{3,1},{3,2}};
 		int coursesToFinish = 4;
-		//boolean canFinish = canFinish(coursesToFinish, prerequisites);
-		//if(canFinish) {
-		System.out.println("The courses can be finished, and the order is: -");
-		int ordering[] = findOrder(coursesToFinish, prerequisites);
-		for(int i = 0; i < ordering.length; i++) {
-			System.out.print(ordering[i] + ", ");
+		boolean canFinish = canFinish(coursesToFinish, prerequisites);
+		if(canFinish) {
+			System.out.println("The courses can be finished, and the order is: -");
+			int ordering[] = findOrder(coursesToFinish, prerequisites);
+			for(int i = 0; i < ordering.length; i++) {
+				System.out.print(ordering[i] + ", ");
+			}
 		}
-		//}
-		//else {
-		//System.out.println("The courses cannot be finished");
-		//}
+		else {
+			System.out.println("The courses cannot be finished");
+		}
 	}
 
 	public static boolean canFinish(int numCourses, int[][] prerequisites) {
