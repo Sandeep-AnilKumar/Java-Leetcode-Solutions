@@ -1,11 +1,15 @@
 package Arrays;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 public class MinimumHeightTrees {
@@ -30,7 +34,6 @@ public class MinimumHeightTrees {
 			return Collections.singletonList(0);
 		}
 
-		@SuppressWarnings("unchecked")
 		Set<Integer>[] adj = new Set[n];
 		for(int i = 0; i < n; ++i) {
 			adj[i] = new HashSet<Integer>();
@@ -41,29 +44,37 @@ public class MinimumHeightTrees {
 			adj[e[0]].add(e[1]);
 		}
 
-		List<Integer> leaves = new ArrayList<Integer>();
+		Deque<Integer> leaves = new ArrayDeque<Integer>();
 		for(int i = 0; i < n; ++i) {
 			if(adj[i].size() == 1) {
-				leaves.add(i);
+				leaves.offerLast(i);
 			}
 		}
 
+		int cur = 0;
+		int size = 0;
 
 		while(n > 2) {
-			n -= leaves.size();
-			List<Integer> newLeaves = new ArrayList<Integer>();
-			for(int leaf : leaves) {
-				int nextLeaf = adj[leaf].iterator().next();
+			size = leaves.size();
+			n -= size;
 
-				adj[nextLeaf].remove(leaf);
+			while(size-- > 0) {
+				cur = leaves.pollFirst();
+				int nextLeaf = adj[cur].iterator().next();
+
+				adj[nextLeaf].remove(cur);
 				if(adj[nextLeaf].size() == 1) {
-					newLeaves.add(nextLeaf);
+					leaves.offerLast(nextLeaf);
 				}
 			}
-
-			leaves = newLeaves;
 		}
-		return leaves;
+
+		size = leaves.size();
+		List<Integer> result = new ArrayList<Integer>();
+		while(size-- > 0) {
+			result.add(leaves.pollFirst());
+		}
+		return result;
 	}
 
 
