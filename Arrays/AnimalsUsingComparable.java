@@ -1,6 +1,9 @@
 package Arrays;
 
+import java.util.Collections;
 import java.util.PriorityQueue;
+import java.util.List;
+import java.util.ArrayList;
 
 class Animal implements Comparable<Animal>{
 	int year;
@@ -37,6 +40,7 @@ public class AnimalsUsingComparable {
 		pq.forEach(System.out::println);
 
 		System.out.println("\n-------------Year Comparison (Descending order)----------------");
+
 		while(!pq.isEmpty()) {
 			System.out.println(pq.poll().toString());
 		}
@@ -77,5 +81,51 @@ public class AnimalsUsingComparable {
 		while(!pqPop.isEmpty()) {
 			System.out.println(pqPop.poll().toString());
 		}
+
+
+		System.out.println("\n\n------------------------Using Lists-----------------------------------------");
+		List<Animal> list = new ArrayList<>();
+		list.add(new Animal(1700, "Mammoth", 1));
+		list.add(new Animal(1456, "Kiwi", 11));
+		list.add(new Animal(1200, "Monkey", 11244124));
+		list.add(new Animal(2001, "Godzilla", 112445));
+		list.add(new Animal(1856, "Spider", 125342));
+		list.add(new Animal(100, "Fish", 11244523));
+
+		System.out.println("\n-------------------------Animals after adding to list-------------------------------");
+		list.forEach(System.out::println);
+
+		//Will by default sort by year, since compareTo method in Animals is defined to do so, this is natural ordering (Comparable).
+		Collections.sort(list);
+
+		System.out.println("\n-------------------------Animals after sorting the list with natural ordering-------------------------------");
+		list.forEach(System.out::println);
+
+		Collections.sort(list, Collections.reverseOrder());
+
+		System.out.println("\n-------------------------Animals after sorting the list with natural ordering in increasing order-------------------------------");
+		list.forEach(System.out::println);
+
+		Collections.sort(list, new AnimalComparator() {
+			@Override
+			public int compare(Animal one, Animal other) {
+				return one.name.compareTo(other.name);
+			}
+		});
+
+		System.out.println("\n-------------------------Animals after sorting with name (Comparator)-------------------------------");
+		list.forEach(System.out::println);
+
+		Collections.sort(list,(Animal x, Animal y) -> {
+			return Long.compare(x.population, y.population);
+		});
+
+		System.out.println("\n-------------------------Animals after sorting with population (Comparator)-------------------------------");
+		list.forEach(System.out::println);
+
+		Collections.sort(list, new AnimalComparator.YearCompare());
+
+		System.out.println("\n-------------------------Animals after sorting with Year (Comparator as static inner class)-------------------------------");
+		list.forEach(System.out::println);
 	}
 }

@@ -4,6 +4,13 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 class AnimalComparator implements Comparator<Animal> {
+	public static class YearCompare implements Comparator<Animal> {
+		@Override
+		public int compare(Animal o1, Animal o2) {
+			return o1.year - o2.year;
+		}
+	}
+
 	@Override
 	public int compare(Animal one, Animal other) {
 		return one.year - other.year;
