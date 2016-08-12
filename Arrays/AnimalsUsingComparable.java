@@ -15,7 +15,7 @@ class Animal implements Comparable<Animal>{
 
 	@Override
 	public int compareTo(Animal other) {
-		return name.compareTo(other.name);
+		return other.year - year;
 	}
 
 	public String toString() {
@@ -33,8 +33,49 @@ public class AnimalsUsingComparable {
 		pq.offer(new Animal(1200, "Monkey", 11244124));
 		pq.offer(new Animal(100, "Fish", 11244523));
 
+		System.out.println("After adding all the elements, the Queue is: - \n--------------------------------------------------");
+		pq.forEach(System.out::println);
+
+		System.out.println("\n-------------Year Comparison (Descending order)----------------");
 		while(!pq.isEmpty()) {
 			System.out.println(pq.poll().toString());
+		}
+
+		//using name; and Anonymous inner class.
+		PriorityQueue<Animal> pqName = new PriorityQueue<Animal>(new AnimalComparator() {
+			@Override
+			public int compare(Animal one, Animal other) {
+				return one.name.compareTo(other.name);
+			}
+		});
+
+		System.out.println("\n-------------Name Comparison----------------");
+		pqName.offer(new Animal(2001, "Godzilla", 112445));
+		pqName.offer(new Animal(1856, "Spider", 125342));
+		pqName.offer(new Animal(1700, "Mammoth", 1));
+		pqName.offer(new Animal(1456, "Kiwi", 11));
+		pqName.offer(new Animal(1200, "Monkey", 11244124));
+		pqName.offer(new Animal(100, "Fish", 11244523));
+
+		while(!pqName.isEmpty()) {
+			System.out.println(pqName.poll().toString());
+		}
+
+		//using population (Descending order) and java lambdas.
+		PriorityQueue<Animal> pqPop = new PriorityQueue<Animal>((Animal x, Animal y) -> {
+			return Long.compare(y.population, x.population);
+		});
+
+		System.out.println("\n-------------Population Comparison----------------");
+		pqPop.offer(new Animal(2001, "Godzilla", 112445));
+		pqPop.offer(new Animal(1856, "Spider", 125342));
+		pqPop.offer(new Animal(1700, "Mammoth", 1));
+		pqPop.offer(new Animal(1456, "Kiwi", 11));
+		pqPop.offer(new Animal(1200, "Monkey", 11244124));
+		pqPop.offer(new Animal(100, "Fish", 11244523));
+
+		while(!pqPop.isEmpty()) {
+			System.out.println(pqPop.poll().toString());
 		}
 	}
 }

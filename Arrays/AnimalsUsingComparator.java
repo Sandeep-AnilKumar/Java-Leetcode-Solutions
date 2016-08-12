@@ -12,8 +12,8 @@ class AnimalComparator implements Comparator<Animal> {
 
 public class AnimalsUsingComparator {
 	public static void main(String[] args) {
-		//using year;
-		PriorityQueue<Animal> pq = new PriorityQueue<Animal>(6, new AnimalComparator());
+		//using year; And normal class.
+		PriorityQueue<Animal> pq = new PriorityQueue<Animal>(new AnimalComparator());
 		pq.offer(new Animal(2001, "Godzilla", 112445));
 		pq.offer(new Animal(1856, "Spider", 125342));
 		pq.offer(new Animal(1700, "Mammoth", 1));
@@ -21,12 +21,16 @@ public class AnimalsUsingComparator {
 		pq.offer(new Animal(1200, "Monkey", 11244124));
 		pq.offer(new Animal(100, "Fish", 11244523));
 
+		System.out.println("After adding all the elements, the Queue is: - \n--------------------------------------------------");
+		pq.forEach(System.out::println);
+
 		System.out.println("\n-------------Year Comparison----------------");
 		while(!pq.isEmpty()) {
 			System.out.println(pq.poll().toString());
 		}
 
-		PriorityQueue<Animal> pqName = new PriorityQueue<Animal>(6, new AnimalComparator() {
+		//using name; and Anonymous inner class.
+		PriorityQueue<Animal> pqName = new PriorityQueue<Animal>(new AnimalComparator() {
 			@Override
 			public int compare(Animal one, Animal other) {
 				return one.name.compareTo(other.name);
@@ -45,11 +49,9 @@ public class AnimalsUsingComparator {
 			System.out.println(pqName.poll().toString());
 		}
 
-		PriorityQueue<Animal> pqPop = new PriorityQueue<Animal>(6, new AnimalComparator() {
-			@Override
-			public int compare(Animal one, Animal other) {
-				return Long.compare(one.population, other.population);
-			}
+		//using population and java lambdas.
+		PriorityQueue<Animal> pqPop = new PriorityQueue<Animal>((Animal x, Animal y) -> {
+			return Long.compare(x.population, y.population);
 		});
 
 		System.out.println("\n-------------Population Comparison----------------");
