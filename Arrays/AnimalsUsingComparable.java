@@ -18,7 +18,9 @@ class Animal implements Comparable<Animal>{
 
 	@Override
 	public int compareTo(Animal other) {
-		return other.year - year;
+		//return other.year - year;
+		//will cause overflow, if both are not positive, better to use: -
+		return (other.year > year ? 1 : (other.year < year ? -1 : 0));
 	}
 
 	public String toString() {
@@ -67,7 +69,7 @@ public class AnimalsUsingComparable {
 
 		//using population (Descending order) and java lambdas.
 		PriorityQueue<Animal> pqPop = new PriorityQueue<Animal>((Animal x, Animal y) -> {
-			return Long.compare(y.population, x.population);
+			return ((Long)y.population).compareTo(x.population);
 		});
 
 		System.out.println("\n-------------Population Comparison----------------");
@@ -117,7 +119,7 @@ public class AnimalsUsingComparable {
 		list.forEach(System.out::println);
 
 		Collections.sort(list,(Animal x, Animal y) -> {
-			return Long.compare(x.population, y.population);
+			return ((Long)x.population).compareTo(y.population);
 		});
 
 		System.out.println("\n-------------------------Animals after sorting with population (Comparator)-------------------------------");

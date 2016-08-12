@@ -7,13 +7,17 @@ class AnimalComparator implements Comparator<Animal> {
 	public static class YearCompare implements Comparator<Animal> {
 		@Override
 		public int compare(Animal o1, Animal o2) {
-			return o1.year - o2.year;
+			//return o1.year - o2.year;
+			//will cause overflow if both are not positive, better to use: -
+			return (o1.year > o2.year ? 1 : (o1.year < o2.year ? -1 : 0));
 		}
 	}
 
 	@Override
 	public int compare(Animal one, Animal other) {
-		return one.year - other.year;
+		//return one.year - other.year;
+		//will cause overflow if both are not positive, better to use: -
+		return (one.year > other.year ? 1 : (one.year < other.year ? -1 : 0));
 	}
 }
 
@@ -58,7 +62,7 @@ public class AnimalsUsingComparator {
 
 		//using population and java lambdas.
 		PriorityQueue<Animal> pqPop = new PriorityQueue<Animal>((Animal x, Animal y) -> {
-			return Long.compare(x.population, y.population);
+			return ((Long)x.population).compareTo(y.population);
 		});
 
 		System.out.println("\n-------------Population Comparison----------------");
