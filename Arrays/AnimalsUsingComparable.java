@@ -125,9 +125,13 @@ public class AnimalsUsingComparable {
 		System.out.println("\n-------------------------Animals after sorting with population (Comparator)-------------------------------");
 		list.forEach(System.out::println);
 
-		Collections.sort(list, new AnimalComparator.YearCompare());
+		Collections.sort(list, (new AnimalComparator()).new YearCompare());
 
 		System.out.println("\n-------------------------Animals after sorting with Year (Comparator as static inner class)-------------------------------");
 		list.forEach(System.out::println);
+
+		list.sort((o1, o2) -> {return (o1.year > o2.year ? 1 : (o1.year < o2.year ? -1 : 0));});
+		System.out.println("\n-------------------------Without Using Collections-----------------------------------------------------");
+		list.forEach((o1) -> System.out.println(o1));
 	}
 }
