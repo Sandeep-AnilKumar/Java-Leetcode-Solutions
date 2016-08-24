@@ -1,44 +1,30 @@
 package Strings;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.TreeMap;
-
 public class IsomorphicStrings {
 
     public static void main(String[] args) {
-        System.out.println(isIsomorphic("1221","4848"));
+        System.out.println(isIsomorphic("12","24"));
 
     }
 
-    public static boolean isIsomorphic(String s, String t) 
-    {
-        if(s == null && s.length() == 0 && t == null && t.length() == 0)
-            return true;
+    public static boolean isIsomorphic(String s, String t) {
+        char[] sMap = new char[256];
+        char[] tMap = new char[256];
+        int length = s.length();
+        char curSChar, curTChar;
 
-        Map<Character, Integer> mapS = new TreeMap<Character, Integer>();
-        Map<Character, Integer> mapT = new TreeMap<Character, Integer>();
+        for(int i = 0; i < length; ++i) {
+            curSChar = s.charAt(i);
+            curTChar = t.charAt(i);
 
-        for(int i = 0; i < s.length(); i++)
-        {
-            if(!mapS.containsKey(s.charAt(i)))
-                mapS.put(s.charAt(i), 1);
-            else
-                mapS.put(s.charAt(i), mapS.get(s.charAt(i)) + 1);
-
-            if(!mapT.containsKey(t.charAt(i)))
-                mapT.put(t.charAt(i), 1);
-            else
-                mapT.put(t.charAt(i), mapT.get(t.charAt(i)) + 1);
-        }
-
-        for(int i = 0; i < s.length(); i++)
-        {
-            if(mapS.get(s.charAt(i)) != mapT.get(t.charAt(i)))
+            if(sMap[curSChar] == '\0' && tMap[curTChar] == '\0') {
+                sMap[curSChar] = curTChar;
+                tMap[curTChar] = curSChar;
+            }
+            else if(sMap[curSChar] != curTChar || tMap[curTChar] != curSChar) {
                 return false;
+            }
         }
-
         return true;
     }
-
 }
