@@ -27,4 +27,14 @@ public class LengthOfLastWord {
         }
         return count;
     }
+
+    //slow and easy solution.
+
+    public static int lengthOfLastWord1(String s) {
+        if(s == null || s.length() == 0) {
+            return 0;
+        }
+        String[] parts =  s.trim().split("\\s+");
+        return parts[parts.length - 1].length();
+    }
 }
