@@ -23,8 +23,7 @@ public class DistinctSubsequence {
         System.out.println(n);
     }
 
-    public static int numDistinct(String s, String t)
-    {
+    public static int numDistinct(String s, String t) {
         if (s == null || t == null || t.length() == 0)
             return 0;
 
