@@ -1,48 +1,46 @@
 package Trees;
 import Trees.TreeNode;
+
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 public class PreOrderIterative {
-	public static void main(String[] args) {
-		TreeNode root = new TreeNode(5);
-		TreeNode rootLeft = new TreeNode(3);
-		TreeNode rootRight = new TreeNode(7);
-		TreeNode leftLeft = new TreeNode(2);
-		TreeNode leftRight = new TreeNode(4);
-		//TreeNode rootRight = new TreeNode(7);
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(5);
+        TreeNode rootLeft = new TreeNode(3);
+        TreeNode rootRight = new TreeNode(7);
+        TreeNode leftLeft = new TreeNode(2);
+        TreeNode leftRight = new TreeNode(4);
+        //TreeNode rootRight = new TreeNode(7);
 
-		root.right = rootRight;
-		root.left = rootLeft;
-		rootLeft.left = leftLeft;
-		rootLeft.right = leftRight;
-		preorderTraversal(root);
-	}
+        root.right = rootRight;
+        root.left = rootLeft;
+        rootLeft.left = leftLeft;
+        rootLeft.right = leftRight;
+        preorderTraversal(root);
+    }
 
-	public static ArrayList preorderTraversal(TreeNode root)
-	{
-		ArrayList<Integer> returnList = new ArrayList<Integer>();
-		if(root == null)
-			return returnList;
+    public static List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if(root == null) {
+            return result;
+        }
 
-		Stack<TreeNode> stack = new Stack<TreeNode>();
-		stack.push(root);
+        Deque<TreeNode> dq = new ArrayDeque<>();
+        TreeNode cur = root;
 
-		while(!stack.empty())
-		{
-			TreeNode n = stack.pop();
-			returnList.add(n.val);
-
-			if(n.right != null)
-			{
-				stack.push(n.right);
-			}
-
-			if(n.left != null)
-			{
-				stack.push(n.left);
-			}
-		}
-		return returnList;
-	}
+        while(!dq.isEmpty() || cur != null) {
+            if(cur != null) {
+                dq.offerLast(cur);
+                result.add(cur.val);
+                cur = cur.left;
+            }
+            else {
+                cur = dq.pollLast();
+                cur = cur.right;
+            }
+        }
+        return result;
+    }
 }
