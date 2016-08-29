@@ -66,11 +66,48 @@ public class Trie {
         return true;
     }
 
+    public String longestCommonPrefix(String word) {
+        if(word == null || word.length() == 0) {
+            return null;
+        }
+
+        int length = word.length();
+        TrieNode current = root;
+        int index = 0;
+        String result = "";
+        int prevMatch = 0;
+
+        for(int i = 0; i < length; ++i) {
+            index = word.charAt(i) - 'a';
+            if(current.children[index] != null) {
+                result += current.children[index].c;
+                current = current.children[index];
+
+                if(current.endOfWord) {
+                    prevMatch = i + 1;
+                }
+            }
+            else {
+                break;
+            }
+        }
+
+        if(!current.endOfWord) {
+            if(prevMatch == 0) {
+                System.out.println("No prefix found");
+                return "";
+            }
+            return result.substring(0, prevMatch);
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         Trie tr = new Trie();
         tr.insert("beach");
         tr.insert("bean");
         System.out.println(tr.search("beans"));
         System.out.println(tr.startsWith("be"));
+        System.out.println(tr.longestCommonPrefix("band"));
     }
 }
