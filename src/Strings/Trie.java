@@ -1,19 +1,5 @@
 package Strings;
 
-class TrieNode {
-    // Initialize your data structure here.
-
-    char c;
-    TrieNode[] children;
-    boolean endOfWord;
-
-    public TrieNode() {
-        c = '0';
-        children = new TrieNode[26];
-        endOfWord = false;
-    }
-}
-
 public class Trie {
     private TrieNode root;
 
