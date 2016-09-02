@@ -5,7 +5,6 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
-import java.util.Queue;
 import java.util.Stack;
 public class InorderIterrative {
 
@@ -22,7 +21,11 @@ public class InorderIterrative {
         rootLeft.left = leftLeft;
         rootLeft.right = leftRight;
 
-        inorderTraversal(root);
+        List<Integer> result = inorderTraversal(root);
+
+        for(int val : result) {
+            System.out.print(val + " ");
+        }
     }
 
     public static List<Integer> inorderTraversal(TreeNode root) {
@@ -45,5 +48,31 @@ public class InorderIterrative {
             }
         }
         return returnList;
+    }
+
+    //Wrong.
+    public static List<Integer> inorderTraversalIterative1(TreeNode root) {
+        List<Integer> result = new ArrayList<Integer>();
+        if(root == null) {
+            return result;
+        }
+
+        Stack<TreeNode> dq = new Stack<TreeNode>();
+        TreeNode cur = root;
+        dq.push(root);
+
+        while(!dq.isEmpty() || cur != null) {
+            if(cur != null) {
+                dq.push(cur.left);
+                cur = cur.left;
+            }
+            else {
+                cur = dq.pop();
+                result.add(cur.val);
+                cur = cur.right;
+            }
+        }
+
+        return result;
     }
 }
