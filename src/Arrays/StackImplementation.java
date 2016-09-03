@@ -1,7 +1,6 @@
 package Arrays;
 
 public class StackImplementation<T> {
-    private StackNode<T> first;
     private StackNode<T> top;
     private StackNode<T> head;
     private int size;
@@ -38,22 +37,13 @@ public class StackImplementation<T> {
     public StackImplementation() {
         head = new StackNode(0);
         size = 0;
-        top = null;
-        first = null;
+        top = head;
     }
 
     public void push(T val) {
         StackNode<T> cur = new StackNode<T>(val);
-        if(size == 0) {
-            head.setNext(cur);
-            size++;
-            first = head.getNext();
-            top = head.getNext();
-            return;
-        }
-
-        top.setNext(cur);
-        top = top.getNext();
+        cur.setNext(top);
+        top = cur;
         size++;
         return;
     }
@@ -63,24 +53,19 @@ public class StackImplementation<T> {
     }
 
     public T pop() {
-        if(size == 0 || top == null) {
+        if(size == 0 || top.getNext() == null) {
             throw new java.util.NoSuchElementException();
         }
 
-        StackNode<T> cur = first;
-        while(!cur.getNext().equals(top)) {
-            cur = cur.getNext();
-        }
-
-        cur.setNext(top.getNext());
         T poppedElement = peek().getValue();
-        top = cur;
+        this.top = this.top.getNext();
         size--;
         return poppedElement;
     }
 
     public void clear() {
         head.setNext(null);
+        top = head;
         size = 0;
     }
 
@@ -94,7 +79,7 @@ public class StackImplementation<T> {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        StackNode<T> cur = first;
+        StackNode<T> cur = head.getNext();
         sb.append(cur.getValue() + "->");
         while(!cur.equals(top)) {
             sb.append(cur.getValue() + "->");
