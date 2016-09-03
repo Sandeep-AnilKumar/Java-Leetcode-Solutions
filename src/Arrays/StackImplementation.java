@@ -1,5 +1,4 @@
 package Arrays;
-import java.util.NoSuchElementException;
 
 public class StackImplementation<T> {
     private StackNode<T> first;
@@ -63,9 +62,9 @@ public class StackImplementation<T> {
         return top;
     }
 
-    public void pop() {
-        if(size == 0) {
-            throw new NoSuchElementException();
+    public T pop() {
+        if(size == 0 || top == null) {
+            throw new java.util.NoSuchElementException();
         }
 
         StackNode<T> cur = first;
@@ -74,9 +73,10 @@ public class StackImplementation<T> {
         }
 
         cur.setNext(top.getNext());
+        T poppedElement = peek().getValue();
         top = cur;
         size--;
-        return;
+        return poppedElement;
     }
 
     public void clear() {
@@ -106,14 +106,15 @@ public class StackImplementation<T> {
     public static void main(String[] args) {
         StackImplementation<Integer> st = new StackImplementation<>();
         System.out.println(st.size());
+        //st.pop(); //NoSuchElementException
         st.push(1);
         st.push(10);
         st.push(100);
         System.out.println(st.size());
         System.out.println(st.peek());
-        st.pop();
+        System.out.println(st.pop());
         System.out.println(st.peek());
-        st.pop();
+        System.out.println(st.pop());
         System.out.println(st.isEmpty());
         st.clear();
         System.out.println(st.isEmpty());
