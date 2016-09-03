@@ -29,9 +29,10 @@ public class LinkedListImplementation<T> {
         }
 
         public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append(value);
-            return sb.toString();
+            if(this.value == null) {
+                return "null";
+            }
+            return this.value.toString();
         }
     }
 

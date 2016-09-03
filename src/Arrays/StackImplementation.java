@@ -1,97 +1,123 @@
 package Arrays;
+import java.util.NoSuchElementException;
 
+public class StackImplementation<T> {
+    private StackNode<T> first;
+    private StackNode<T> top;
+    private StackNode<T> head;
+    private int size;
 
-class Stack<T> {
-	private Stack<T> next;
-	private T elem;
-	public Stack<T> top;
+    static class StackNode<T> {
+        private T value;
+        private StackNode<T> next;
 
-	public Stack(T value) {
-		elem = value;
-		next = null;
-	}
+        public StackNode(T val) {
+            this.value = val;
+            this.next = null;
+        }
 
-	public Stack() {
-	}
+        public T getValue() {
+            return value;
+        }
 
-	public T value() {
-		return elem;
-	}
+        public StackNode<T> getNext() {
+            return next;
+        }
 
-	public void setValue(T value) {
-		elem = value;
-	}
+        public void setNext(StackNode<T> nextNode) {
+            this.next = nextNode;
+        }
 
-	public Stack<T> next() {
-		return next;
-	}
+        public String toString() {
+            if(value == null) {
+                return "null";
+            }
+            return value.toString();
+        }
+    }
 
-	public void setNext(Stack<T> nt) {
-		next = nt;
-	}
+    public StackImplementation() {
+        head = new StackNode(0);
+        size = 0;
+        top = null;
+        first = null;
+    }
 
-	public void push(T value) {
-		Stack<T> newElem = new Stack<T>(value);
-		newElem.next = this.top;
-		this.top = newElem;
-	}
+    public void push(T val) {
+        StackNode<T> cur = new StackNode<T>(val);
+        if(size == 0) {
+            head.setNext(cur);
+            size++;
+            first = head.getNext();
+            top = head.getNext();
+            return;
+        }
 
-	public T pop() {
-		if(this.top == null) {
-			throw new java.util.NoSuchElementException();
-		}
+        top.setNext(cur);
+        top = top.getNext();
+        size++;
+        return;
+    }
 
-		T value = this.top.value();
-		this.top = this.top.next();
-		return value;
-	}
+    public StackNode<T> peek() {
+        return top;
+    }
 
-	public T peek() {
-		if(this.top == null) {
-			return null;
-		}
-		T value = this.top.value();
-		return value;
-	}
+    public void pop() {
+        if(size == 0) {
+            throw new NoSuchElementException();
+        }
 
-	public void display() {
-		if(this.top == null) {
-			return;
-		}
+        StackNode<T> cur = first;
+        while(!cur.getNext().equals(top)) {
+            cur = cur.getNext();
+        }
 
-		Stack<T> current = this.top;
+        cur.setNext(top.getNext());
+        top = cur;
+        size--;
+        return;
+    }
 
-		while(current != null) {
-			System.out.println(current.value() + " ");
-			current = current.next();
-		}
-	}
-}
+    public void clear() {
+        head.setNext(null);
+        size = 0;
+    }
 
-public class StackImplementation {
-	public static void main(String[] args) {
-		Stack<Integer> stack = new Stack<Integer>();
+    public int size() {
+        return size;
+    }
 
-		stack.push(10);
-		stack.push(15);
-		stack.push(25);
-		stack.push(45);
-		stack.push(56);
+    public boolean isEmpty() {
+        return size == 0;
+    }
 
-		System.out.println("current stack is: -");
-		stack.display();
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        StackNode<T> cur = first;
+        sb.append(cur.getValue() + "->");
+        while(!cur.equals(top)) {
+            sb.append(cur.getValue() + "->");
+        }
+        sb.append("null");
+        return sb.toString();
+    }
 
-		int popped = stack.pop();
-		System.out.println("Popped element is :" + popped + ", new top is: " + stack.peek());
-
-		popped = stack.pop();
-		System.out.println("Popped element is :" + popped + ", new top is: " + stack.peek());
-
-		int top = stack.peek();
-
-		System.out.println("The top element is: " + top);
-
-		System.out.println("current stack is: -");
-		stack.display();
-	}
+    public static void main(String[] args) {
+        StackImplementation<Integer> st = new StackImplementation<>();
+        System.out.println(st.size());
+        st.push(1);
+        st.push(10);
+        st.push(100);
+        System.out.println(st.size());
+        System.out.println(st.peek());
+        st.pop();
+        System.out.println(st.peek());
+        st.pop();
+        System.out.println(st.isEmpty());
+        st.clear();
+        System.out.println(st.isEmpty());
+        System.out.println(st.size());
+        //st.pop(); //NoSuchElementException
+    }
 }
