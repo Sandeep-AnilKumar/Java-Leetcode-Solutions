@@ -32,7 +32,7 @@ public class QueueUsingArrays<T> {
     }
 
     public void offer(T val) {
-        if(size >= INITIAL_CAPACITY) {
+        if(size == INITIAL_CAPACITY) {
             resize();
         }
 
