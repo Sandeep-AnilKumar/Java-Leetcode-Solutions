@@ -30,6 +30,13 @@ public class PathsToEnd {
             endTime = System.nanoTime();
             duration = endTime - startTime;
             System.out.println(duration);
+
+
+            startTime = System.nanoTime();
+            System.out.print(countPathsDynamicProgramming(grid) + " by DP -> :");
+            endTime = System.nanoTime();
+            duration = endTime - startTime;
+            System.out.println(duration);
     }
 
     //DFS
@@ -95,5 +102,44 @@ public class PathsToEnd {
             return paths[row][col];
         }
         return 0;
+    }
+
+    //Dynamic Programming
+    public static int countPathsDynamicProgramming(boolean[][] grid) {
+        if(grid == null || grid.length == 0) {
+            return 0;
+        }
+        int row = grid.length;
+        int col = grid[0].length;
+        if(!grid[row - 1][col - 1]) {
+            return 0;
+        }
+
+        int[][] paths = new int[row][col];
+        paths[row - 1][col - 1] = 1;
+
+        //Filling the bottom row
+        for(int j = col - 2; j >= 0; --j) {
+            if(grid[row - 1][j]) {
+                paths[row - 1][j] = paths[row - 1][j + 1];
+            }
+        }
+
+        //Filling the rightmost column
+        for(int i = row - 2; i >= 0; --i) {
+            if(grid[i][col - 1]) {
+                paths[i][col - 1] = paths[i + 1][col - 1];
+            }
+        }
+
+        //Filling each of the remaining cell
+        for(int i = row - 2; i >= 0; --i) {
+            for(int j = col - 2; j >= 0; --j) {
+                if(grid[i][j]) {
+                    paths[i][j] = paths[i + 1][j] + paths[i][j + 1];
+                }
+            }
+        }
+        return paths[0][0];
     }
 }
