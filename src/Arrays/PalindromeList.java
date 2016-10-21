@@ -6,7 +6,7 @@ public class PalindromeList {
 		MyNode l1 = new MyNode(1);
 		MyNode l2 = new MyNode(2);
 		MyNode l3 = new MyNode(3);
-		MyNode l4 = new MyNode(3);
+		MyNode l4 = new MyNode(2);
 		MyNode l5 = new MyNode(1);
 
 		l1.next = l2;

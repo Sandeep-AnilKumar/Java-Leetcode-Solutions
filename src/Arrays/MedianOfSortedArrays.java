@@ -3,8 +3,8 @@ package Arrays;
 public class MedianOfSortedArrays {
 
 	public static void main(String[] args) {
-		int[] nums1 = new int[]{1,2};
-		int[] nums2 = new int[]{};
+		int[] nums1 = new int[]{6,9,11,13,18};
+		int[] nums2 = new int[]{6,9,13,18};
 		System.out.println(medianOfSortedArrays(nums1, nums2));
 	}
 
