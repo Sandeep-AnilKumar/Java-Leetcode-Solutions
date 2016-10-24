@@ -28,29 +28,20 @@ public class PathSum3 {
 
     }
 
-
     public static int pathSum(TreeNode root, int sum) {
-        if(root == null) {
+        if(root == null)
             return 0;
-        }
-
-        int count = 0;
-        return pathSum(root, sum, 0, sum, count);
+        return findPath(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
     }
 
-    public static int pathSum(TreeNode root, int sum, int presentSum, int totalSum, int count) {
-        if(root == null) {
-            return count;
-        }
-
-        if(sum == root.val || presentSum + root.val == totalSum) {
-            count++;
-            return count;
-        }
-
-        int result = count;
-        result += pathSum(root.left, sum - root.val, root.val, totalSum, count);
-        result += pathSum(root.right, sum - root.val, root.val, totalSum, count);
-        return result;
+    public static int findPath(TreeNode root, int sum){
+        int res = 0;
+        if(root == null)
+            return res;
+        if(sum == root.val)
+            res++;
+        res += findPath(root.left, sum - root.val);
+        res += findPath(root.right, sum - root.val);
+        return res;
     }
 }
