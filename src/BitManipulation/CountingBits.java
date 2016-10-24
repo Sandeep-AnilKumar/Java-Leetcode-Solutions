@@ -1,4 +1,4 @@
-package Arrays;
+package BitManipulation;
 
 public class CountingBits {
     public static void main (String[] args) {
@@ -7,7 +7,7 @@ public class CountingBits {
 
         int i = 0;
         for(int num : result) {
-            System.out.println(i + "->" + num);
+            System.out.println(i++ + "->" + num);
         }
     }
 
