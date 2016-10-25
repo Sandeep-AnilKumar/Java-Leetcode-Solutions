@@ -1,47 +1,16 @@
-package DynamicProgramming;
+package Arrays;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class MaximalRectangle{
+public class LargestRectangleInHistogram {
 
     public static void main(String[] args) {
-        char [][]array = new char[][]{{'1','0','0','1','0'},
-            {'1','1','0','0','0',},
-            {'1','0','1','0','1'},
-            {'1','1','1','0','1'}};
-            int area = maximalRectangle(array);
-            System.out.println("The area of maximal square: "+area);
+        int[] heights = {2,1,5,6,2,3};
+        System.out.println("Largest Rectangle in Histogram is : " + largestRectangleArea(heights));
     }
 
-    public static int maximalRectangle(char[][] matrix) {
-        if(matrix == null || matrix.length == 0) {
-            return 0;
-        }
-
-        int row = matrix.length;
-        int col = matrix[0].length;
-        int[] dp = new int[col];
-        int maxArea = 0;
-        for(int i = 0; i < col; ++i) {
-            dp[i] = matrix[0][i] - '0';
-        }
-        maxArea = Math.max(maxArea, histogram(dp));
-
-        for(int i = 1; i < row; ++i) {
-            for(int j = 0; j < col; ++j) {
-                if(matrix[i][j] - '0' == 1) {
-                    dp[j] += 1;
-                } else {
-                    dp[j] = 0;
-                }
-            }
-            maxArea = Math.max(maxArea, histogram(dp));
-        }
-        return maxArea;
-    }
-
-    public static int histogram(int[] heights) {
+    public static int largestRectangleArea(int[] heights) {
         if(heights == null || heights.length == 0) {
             return 0;
         }
