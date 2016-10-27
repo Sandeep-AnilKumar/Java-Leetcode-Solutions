@@ -9,7 +9,7 @@ public class AllAnagrams {
     public static void main(String[] args) {
         String s = "abab";
         String p = "ab";
-        System.out.println(findAnagrams(s, p));
+        System.out.println(findAnagramsEasy(s, p));
     }
 
     //Very complicated Code.
@@ -67,7 +67,41 @@ public class AllAnagrams {
         p[start] = p[end];
         p[end] = temp;
     }
-    
-    //Easy version.
-    
+
+    //Easy version using sliding window.
+    public static List<Integer> findAnagramsEasy(String s, String p) {
+        List<Integer> res = new ArrayList<>();
+        if(p.length() > s.length()) {
+            return res;
+        }
+        char[] sStr = s.toCharArray();
+        int[] map = new int[26];
+        for(char ch : p.toCharArray())
+            map[ch - 'a']++;
+        int n = s.length();
+        int m = p.length();
+
+        int j = 0;
+
+        for(j = 0; j < m - 1; j++) {
+            map[sStr[j] - 'a']--;
+        }
+
+        for(int i = 0; j < n; i++, j++) {
+            map[sStr[j] - 'a']--;
+            if(check(map)) {
+                res.add(i);
+            }
+            map[sStr[i] - 'a']++;
+        }
+        return res;
+    }
+    public static boolean check(int[]map){
+        for(int n : map) {
+            if(n > 0) {   
+                return false;
+            }
+        }
+        return true;
+    }
 }
