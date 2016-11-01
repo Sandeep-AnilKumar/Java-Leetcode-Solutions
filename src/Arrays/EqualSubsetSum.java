@@ -37,4 +37,22 @@ public class EqualSubsetSum {
         }
         return dp[dp.length - 1][dp[0].length - 1];
     }
+
+    //A better space efficient version.
+    public static boolean canPartitionAdvanced(int[] nums) {
+        if(nums == null || nums.length == 0) 
+            return true;
+        int sum = 0;
+        for(int n : nums) sum += n;
+        if(sum % 2 != 0 ) return false;
+        sum /= 2;
+        boolean[] dp = new boolean[sum + 1];
+        dp[0] = true;
+
+        for(int i = 0; i < nums.length; ++ i) {
+            for(int j = sum; j >= nums[i] ; --j)
+                dp[j] = dp[j] || dp[j - nums[i]];
+        }
+        return dp[sum];
+    }
 }
