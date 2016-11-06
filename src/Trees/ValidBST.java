@@ -3,8 +3,8 @@ package Trees;
 public class ValidBST {
 
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(5);
-        TreeNode rootLeft = new TreeNode(6);
+        TreeNode root = new TreeNode(4);
+        TreeNode rootLeft = new TreeNode(3);
         TreeNode rootRight = new TreeNode(7);
 
         root.right = rootRight;
