@@ -16,7 +16,7 @@ public class ReverseWord1 {
         String[] parts = s.split("\\s+");
         int length = parts.length;
         int start = 0;
-        int end = parts.length - 1;
+        int end = length - 1;
         String temp = "";
         while(start < end) {
             temp = parts[start];
