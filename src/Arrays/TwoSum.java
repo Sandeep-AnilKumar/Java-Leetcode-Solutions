@@ -1,50 +1,32 @@
 package Arrays;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TwoSum {
 
-	public static void main(String[] args) {
-		int nums[] = new int[]{0,4,2,0};
-		int target = 0;
-		int indices[] = twoSum(nums,target);
-		System.out.println("The two indices of numbers that add up to the target are : ");
-		for(int i : indices)
-		{
-			System.out.println(i);
-		}
-	}
-	
-	public static int[] twoSum(int[] nums, int target)
-	{
-		int length = nums.length;
-		List<Integer> numbers = new ArrayList<Integer>(nums.length);
-		int indices[] = new int[2];
-		
-		for(int i = 0; i < length; i++)
-		{
-			numbers.add(nums[i]);
-		}
-		
-		for(int i = 0; i < length; i++)
-		{
-			int difference = target - nums[i];
-			if(numbers.contains(difference) && numbers.indexOf(difference) != i)
-			{
-				indices[0] = i + 1;
-				indices[1] = numbers.indexOf(difference) + 1;
-				
-				if(indices[0] > indices[1])
-				{
-					int temp = indices[0];
-					indices[0] = indices[1];
-					indices[1] = temp;
-				}
-				break;
-			}
-		}
-		return indices;
-	}
+    public static void main(String[] args) {
+        int nums[] = new int[]{3,2,4};
+        int target = 6;
+        int indices[] = twoSum(nums,target);
+        System.out.println("The two indices of numbers that add up to the target are : ");
+        for(int i : indices) {
+            System.out.print(i + " ");
+        }
+    }
+
+    public static int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int length = nums.length;
+        int index1 = 0, index2 = 0;
+        for(int i = 0; i < length; ++i) {
+            if(map.containsKey(target - nums[i])) {
+                index1 = map.get(target - nums[i]);
+                index2 = i;
+                return new int[]{index1, index2};
+            }
+            map.put(nums[i], i);
+        }
+        return new int[2];
+    }
 }
