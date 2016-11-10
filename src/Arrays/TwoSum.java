@@ -1,6 +1,8 @@
 package Arrays;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TwoSum {
@@ -26,6 +28,7 @@ public class TwoSum {
                 return new int[]{index1, index2};
             }
             map.put(nums[i], i);
+
         }
         return new int[2];
     }
