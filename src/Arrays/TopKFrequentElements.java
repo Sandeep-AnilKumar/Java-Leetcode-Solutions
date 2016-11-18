@@ -7,60 +7,39 @@ import java.util.Map;
 
 public class TopKFrequentElements {
 
-	public static void main(String[] args) {
-		int[] nums = new int[]{1,2,3,4,4,4,3,2,3,1,1,3};
-		int k = 3;
-		List<Integer> result = topKFrequent(nums, k);
+    public static void main(String[] args) {
+        int[] nums = new int[]{1,2,3,4,4,4,3,2,3,1,1,3};
+        int k = 3;
+        List<Integer> result = topKFrequent(nums, k);
 
-		for(int num : result) {
-			System.out.print(num + " ,");
-		}
-	}
+        for(int num : result) {
+            System.out.print(num + " ,");
+        }
+    }
 
+    public static List<Integer> topKFrequent(int[] nums, int k) {
+        List<Integer>[] bucket = new List[nums.length + 1];
+        Map<Integer, Integer> frequencyMap = new HashMap<Integer, Integer>();
 
-	public static List<Integer> topKFrequent(int[] nums, int k) {
-		int length = nums.length;
-		Map<Integer, Integer> frequency = new HashMap<>();
+        for (int n : nums) {
+            frequencyMap.put(n, frequencyMap.getOrDefault(n, 0) + 1);
+        }
 
-		for(int i = 0; i < length; ++i) {
-			if(!frequency.containsKey(nums[i])) {
-				frequency.put(nums[i],1);
-			}
-			else {
-				frequency.put(nums[i], frequency.get(nums[i]) + 1);
-			}
-		}
+        for (int key : frequencyMap.keySet()) {
+            int frequency = frequencyMap.get(key);
+            if (bucket[frequency] == null) {
+                bucket[frequency] = new ArrayList<>();
+            }
+            bucket[frequency].add(key);
+        }
 
-		Map<Integer, List<Integer>> result = new HashMap<>();
-		List<Integer> temp = new ArrayList<Integer>();
-		int curFrequency = 0;
-		for(int key : frequency.keySet()) {
-			curFrequency = frequency.get(key);
-			if(!result.containsKey(curFrequency)) {
-				temp = new ArrayList<>();
-			}
-			else {
-				temp = result.get(curFrequency);
-			}
-			temp.add(key);
-			result.put(curFrequency, temp);
-		}
+        List<Integer> res = new ArrayList<>();
 
-		List<Integer> elements = new ArrayList<>();
-		int max = 0;
-		while(k > 0) {
-			max = 0;
-			for(int key : result.keySet()) {
-				max = Math.max(max, key);
-			}
-
-			temp = result.get(max);
-			for(int num : temp) {
-				elements.add(num);
-			}
-			k -= temp.size();
-			result.remove(max);
-		}
-		return elements;
-	}
+        for (int pos = bucket.length - 1; pos >= 0 && res.size() < k; pos--) {
+            if (bucket[pos] != null) {
+                res.addAll(bucket[pos]);
+            }
+        }
+        return res;
+    }
 }
