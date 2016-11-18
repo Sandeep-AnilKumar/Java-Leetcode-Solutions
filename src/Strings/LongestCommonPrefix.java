@@ -2,7 +2,7 @@ package Strings;
 
 public class LongestCommonPrefix {
     public static void main(String[] args) {
-        String[] strs = {"bank","banks","banker","banked","baked"};
+        String[] strs = {"acc", "a"};
         System.out.println("Longest common prefix among the strings is : " + longestCommonPrefix(strs));
     }
 
@@ -23,5 +23,29 @@ public class LongestCommonPrefix {
             lcp.append(c);
         }
         return lcp.toString();
+    }
+
+    public static String longestCommonPrefix2(String[] strs) {
+        if(strs == null || strs.length == 0) {
+            return "";
+        }
+
+        int length = strs.length;
+        int firstLength = strs[0].length();
+        String temp = strs[0];
+        int i = 1;
+        while(firstLength-- > 0) {
+            i = 1;
+            for(; i < length; ++i) {
+                if(strs[i].indexOf(temp) != 0) {
+                    temp = temp.substring(0, temp.length() - 1);
+                    break;
+                }
+            }
+            if(i == length) {
+                return temp;
+            }
+        }
+        return "";
     }
 }
