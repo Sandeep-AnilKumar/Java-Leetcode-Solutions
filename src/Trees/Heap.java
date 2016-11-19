@@ -32,12 +32,15 @@ public class Heap {
         while(index < size / 2) {
             int left = 2 * index + 1;
             int right = left + 1;
+
+            //convert > to < to make it as minHeap.
             if(right < size && heapArray[right].key > heapArray[left].key) {
                 largest = right;
             } else {
                 largest = left;
             }
 
+            //convert >= to <= to make it as minHeap.
             if(root.key >= heapArray[largest].key) {
                 break;
             }
