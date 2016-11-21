@@ -1,10 +1,10 @@
 package Strings;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Set;
 
 public class WordLadder1 {
@@ -85,26 +85,28 @@ public class WordLadder1 {
     }
 
     public static int ladderLengthBetter(String beginWord, String endWord, Set<String> wordList) {
-        Queue<String> wordQ=new LinkedList<String>();
-        Queue<Integer> lengthQ=new LinkedList<Integer>();
-        wordQ.offer(beginWord);
-        lengthQ.offer(1);
+        Deque<String> wordQ = new ArrayDeque<String>();
+        Deque<Integer> lengthQ = new ArrayDeque<Integer>();
+        wordQ.offerLast(beginWord);
+        lengthQ.offerLast(1);
         wordList.remove(beginWord);
 
-        while(wordQ.peek()!=null){
-            String currentWord=wordQ.poll();
-            int len=lengthQ.poll();
-            if(currentWord.equals(endWord)) return len;
+        while(wordQ.peekFirst() != null){
+            String currentWord = wordQ.pollFirst();
+            int len = lengthQ.pollFirst();
+            if(currentWord.equals(endWord)) {
+                return len;
+            }
 
-            for(int i=0;i<currentWord.length();i++){    //for each char in the word
-                char[] charArray=currentWord.toCharArray();
-                for(int j=0;j<26;j++){                  //change from a to z
-                    charArray[i]=(char)('a'+j);
-                    String tmp=String.valueOf(charArray);
+            for(int i = 0; i < currentWord.length(); ++i) {
+                char[] charArray = currentWord.toCharArray();
+                for(int j = 0; j < 26; ++j) {
+                    charArray[i] = (char)('a' + j);
+                    String tmp = String.valueOf(charArray);
                     if(wordList.contains(tmp)){
                         wordList.remove(tmp);
-                        wordQ.offer(tmp);
-                        lengthQ.offer(len+1);
+                        wordQ.offerLast(tmp);
+                        lengthQ.offerLast(len + 1);
                     }
                 }
             }
