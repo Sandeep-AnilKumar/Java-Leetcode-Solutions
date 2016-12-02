@@ -40,5 +40,26 @@ public class ValidWordSquare {
             index++;
         }
         return true;
-    }    
+    }
+
+    //A better understanding code.
+    public static boolean validWordSquareBetter(List<String> words) {
+        if (words.size() == 0 || words == null) return true;
+        int n = words.size();
+        for (int i = 0; i < n; i++) {
+            String tmp = words.get(i);
+            for (int j = 0; j < tmp.length(); j++) {
+                // too long
+                if (j >= n)
+                    return false;
+                // too short
+                if (words.get(j).length() <= i)
+                    return false;
+                // letter not equal
+                if (tmp.charAt(j) != words.get(j).charAt(i))
+                    return false;
+            }
+        }
+        return true;
+    }
 }
