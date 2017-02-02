@@ -7,7 +7,7 @@ public class LargestProductPalindrome {
         System.out.println(largestPalindrome(n));
     }
 
-    //Brute force, does not work for all cases.
+    //Brute force, does not work for all cases and causes TLE.
     public static int largestPalindrome(int n) {
         if(n <= 0) {
             return 0;
@@ -22,25 +22,22 @@ public class LargestProductPalindrome {
         int num1 = Integer.parseInt(sb.toString());
         int num2 = num1;
         int prod = 0;
-        boolean found = false;
+        int max = Integer.MIN_VALUE;
 
         while(num1 > 0) {
             num2 = num1;
             while(num2 > 0) {
                 prod = num1*num2;
                 if(ifIsPalindrome(prod)) {
-                    found = true;
                     break;
                 }
                 num2--;
             }
-            if(found) {
-                break;
-            }
+            max = Integer.max(prod, max);
             num1--;
         }
-        prod %= 1337;
-        return prod;
+        max %= 1337;
+        return max;
     }
 
     public static boolean ifIsPalindrome(int prod) {
