@@ -55,6 +55,8 @@ public class AnimalsUsingComparable {
             }
         });
 
+        //Testings
+        
         System.out.println("\n-------------Name Comparison----------------");
         pqName.offer(new Animal(2001, "Godzilla", 112445));
         pqName.offer(new Animal(1856, "Spider", 125342));
