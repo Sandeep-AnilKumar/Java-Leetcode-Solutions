@@ -8,6 +8,8 @@ public class PlusOne {
 			System.out.println(i + " ");
 		}
 	}
+	
+	//Is a little complicated.
 	public static int[] plusOne(int[] digits) {
 		if (digits == null || digits.length == 0) {
 			return new int[0];
