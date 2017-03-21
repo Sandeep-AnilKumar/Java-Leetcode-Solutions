@@ -8,7 +8,7 @@ public class PlusOne {
 			System.out.println(i + " ");
 		}
 	}
-	
+
 	//Is a little complicated. O(2n)
 	public static int[] plusOne(int[] digits) {
 		if (digits == null || digits.length == 0) {
@@ -32,5 +32,24 @@ public class PlusOne {
 			return result;
 		}
 		return digits;
+	}
+
+	//A much better approach.
+	public static int[] plusOneBetter(int[] digits) {
+
+		int n = digits.length;
+		for(int i=n-1; i>=0; i--) {
+			if(digits[i] < 9) {
+				digits[i]++;
+				return digits;
+			}
+
+			digits[i] = 0;
+		}
+
+		int[] newNumber = new int [n+1];
+		newNumber[0] = 1;
+
+		return newNumber;
 	}
 }
