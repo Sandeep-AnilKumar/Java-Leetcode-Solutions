@@ -9,7 +9,7 @@ public class PlusOne {
 		}
 	}
 	
-	//Is a little complicated.
+	//Is a little complicated. O(2n)
 	public static int[] plusOne(int[] digits) {
 		if (digits == null || digits.length == 0) {
 			return new int[0];
