@@ -49,7 +49,6 @@ public class PlusOne {
 
 		int[] newNumber = new int [n+1];
 		newNumber[0] = 1;
-
 		return newNumber;
 	}
 }
