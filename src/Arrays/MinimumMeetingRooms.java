@@ -66,7 +66,6 @@ public class MinimumMeetingRooms {
 			}
 		});
 
-
 		heap.offer(intervals[0]);
 
 		for(int i = 1; i < length; ++i) {
@@ -80,5 +79,4 @@ public class MinimumMeetingRooms {
 		}
 		return heap.size();
 	}
-
 }
