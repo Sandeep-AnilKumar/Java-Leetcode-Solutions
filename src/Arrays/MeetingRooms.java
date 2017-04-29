@@ -17,6 +17,11 @@ public class MeetingRooms {
 			this.start = start;
 			this.end = end;
 		}
+
+		@Override
+		public String toString() {
+			return "[" + start + "," + end + "]";
+		}
 	}
 
 	public static void main(String[] args) {
