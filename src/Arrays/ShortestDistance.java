@@ -12,9 +12,9 @@ public class ShortestDistance {
 		int min = Integer.MAX_VALUE;
 		int length = words.length;
 		for(int i = 0; i < length; ++i) {
-			if(words[i] == word1) {
+			if(words[i].equals(word1)) {
 				i1 = i;
-			} else if(words[i] == word2) {
+			} else if(words[i].equals(word2)) {
 				i2 = i;
 			} else {
 				continue;
