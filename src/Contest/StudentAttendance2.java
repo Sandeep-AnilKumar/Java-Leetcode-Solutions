@@ -9,7 +9,8 @@ public class StudentAttendance2 {
 		int n = 5;
 		System.out.println(checkRecord(n));
 	}
-
+	
+	//Will work, but will take a lot of time for greater numbers.
 	public static int checkRecord(int n) {
 		n -= 1;
 		char[] posChars = {'A','L','P'};
