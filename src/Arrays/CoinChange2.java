@@ -6,11 +6,11 @@ import java.util.List;
 public class CoinChange2 {
 
 	public static void main(String[] args) {
-		int[] coins = new int[20];
-		for(int i = 1; i < 20; ++i) {
+		int[] coins = new int[100];
+		for(int i = 1; i < 100; ++i) {
 			coins[i - 1] = i;
 		}
-		int amount = 20;
+		int amount = 100;
 		System.out.println(changeDP(amount, coins));
 	}
 
