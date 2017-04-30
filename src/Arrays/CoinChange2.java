@@ -6,9 +6,12 @@ import java.util.List;
 public class CoinChange2 {
 
 	public static void main(String[] args) {
-		int[] coins = {1,2,3,4,5,6,7,8,9,10};
-		int amount = 10;
-		System.out.println(change(amount, coins));
+		int[] coins = new int[20];
+		for(int i = 1; i < 20; ++i) {
+			coins[i - 1] = i;
+		}
+		int amount = 20;
+		System.out.println(changeDP(amount, coins));
 	}
 
 	//May not work for large numbers.
@@ -51,5 +54,19 @@ public class CoinChange2 {
 		cur.remove(cur.indexOf(curCoin));
 		sum = change(amount, cur, result, perm, sum);
 		return sum;
+	}
+
+	//Best Solution.
+	public static int changeDP(int amount, int[] coins) {
+		int[] dp = new int[amount + 1];
+		dp[0] = 1;
+		for (int coin : coins) {
+			for (int i = 1; i <= amount; i++) {
+				if (i >= coin) {
+					dp[i] += dp[i - coin];
+				}
+			}
+		}
+		return dp[amount];
 	}
 }
