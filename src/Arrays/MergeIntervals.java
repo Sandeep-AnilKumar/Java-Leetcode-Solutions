@@ -4,22 +4,38 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.PriorityQueue;
 
-import Arrays.MeetingRooms.Interval;
+class Interval {
+	int start;
+	int end;
+
+	Interval() {
+		start = 0;
+		end = 0;
+	}
+
+	Interval(int start, int end) {
+		this.start = start;
+		this.end = end;
+	}
+
+	@Override
+	public String toString() {
+		return "[" + start + "," + end + "]";
+	}
+}
 
 public class MergeIntervals {
 
 	public static void main(String[] args) {
 		List<Interval> intervals = new ArrayList<>(4);
-		MeetingRooms m = new MeetingRooms();
-		intervals.add(m.new Interval(2,3));
-		intervals.add(m.new Interval(2,2));
-		intervals.add(m.new Interval(3,3));
-		intervals.add(m.new Interval(1,3));
-		intervals.add(m.new Interval(5,7));
-		intervals.add(m.new Interval(2,2));
-		intervals.add(m.new Interval(4,6));
+		intervals.add(new Interval(2,3));
+		intervals.add(new Interval(2,2));
+		intervals.add(new Interval(3,3));
+		intervals.add(new Interval(1,3));
+		intervals.add(new Interval(5,7));
+		intervals.add(new Interval(2,2));
+		intervals.add(new Interval(4,6));
 		System.out.println("Merged Intervals are := " + new MergeIntervals().merge(intervals));
 	}
 
@@ -37,27 +53,20 @@ public class MergeIntervals {
 			} 
 		});
 
-		PriorityQueue<Interval> heap = new PriorityQueue<>(intervals.size(), new Comparator<Interval>() {
-			public int compare(Interval i1, Interval i2) {
-				return i2.end - i1.end;
-			} 
-		});
-
-		heap.offer(intervals.get(0));
+		int start = intervals.get(0).start;
+		int end = intervals.get(0).end;
+		List<Interval> result = new ArrayList<>();
 		for(int i = 1; i < intervals.size(); ++i) {
-			Interval interval = heap.poll();
-			if(intervals.get(i).start <= interval.end) {
-				interval.end = Math.max(intervals.get(i).end, interval.end);
+			if(intervals.get(i).start <= end) {
+				end = Math.max(intervals.get(i).end, end);
 			} else {
-				heap.offer(intervals.get(i));
+				result.add(new Interval(start, end));
+				start = intervals.get(i).start;
+				end = intervals.get(i).end;
 			}
-			heap.offer(interval);
 		}
 
-		List<Interval> result = new ArrayList<>(heap.size());
-		while(heap.size() > 0) {
-			result.add(heap.poll());
-		}
+		result.add(new Interval(start, end));
 		return result;
 	}
 }
