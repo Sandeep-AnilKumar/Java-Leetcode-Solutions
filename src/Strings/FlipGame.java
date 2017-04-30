@@ -21,11 +21,7 @@ public class FlipGame {
 
 		for(int i = 0; i < length - 1; ++i) {
 			if(s.charAt(i) == '+' && s.charAt(i + 1) == '+') {
-				curMove = s.substring(0, i) + "" + "--";
-				if(i < length - 2) {
-					curMove = curMove + s.substring(i+2, length);
-				}
-				result.add(curMove);
+				result.add(curMove = s.substring(0, i) + "" + "--" + s.substring(i+2));
 			}
 		}
 		return result;
