@@ -19,22 +19,19 @@ public class MinimumAbsoluteDifferenceInBST {
 
 	public static int getMinimumDifference(TreeNode root) {
 		Deque<TreeNode> stack = new ArrayDeque<>();
-		stack.offerFirst(root);
 		List<Integer> nums = new ArrayList<>();
-		TreeNode cur = null;
-		while(!stack.isEmpty()) {
-			cur = stack.pollFirst();
-			nums.add(cur.val);
-			if(cur.left != null) {
-				stack.offerFirst(cur.left);
-			}
-
-			if(cur.right != null) {
-				stack.offerFirst(cur.right);
+		TreeNode cur = root;
+		while(!stack.isEmpty() || cur != null) {
+			if(cur != null) {
+				stack.offerFirst(cur);
+				cur = cur.left;
+			} else {
+				cur = stack.pollFirst();
+				nums.add(cur.val);
+				cur = cur.right;
 			}
 		}
 
-		Collections.sort(nums);
 		int min = Integer.MAX_VALUE;
 		for(int i = 0; i < nums.size() - 1; ++i) {
 			min = Math.min(min, Math.abs(nums.get(i) - nums.get(i + 1)));
