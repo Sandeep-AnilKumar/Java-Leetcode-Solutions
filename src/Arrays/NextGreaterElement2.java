@@ -1,0 +1,65 @@
+package Arrays;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.Map;
+
+public class NextGreaterElement2 {
+
+	public static void main(String[] args) {
+		int[] nums = {100,1,11,1,120,111,123,1,-1,-100};
+		System.out.println("The next greater elements for the array elements in circular fashion are :=");
+		int[] result = nextGreaterElements(nums);
+		for(int i = 0; i < nums.length; ++i) {
+			System.out.print("\"" + nums[i] + "\" := \"" + result[i] + "\"\n");
+		}
+	}
+
+	//Not the right way, so same occurrences of a number have different greater element, because of their positions in the array.
+	public static int[] nextGreaterElements(int[] nums) {
+		if(nums == null || nums.length == 0) {
+			return new int[0];
+		}
+
+		int length = nums.length;
+		int cirLength = length * 2;
+		int[] circularNums = new int[cirLength];
+
+		for(int i = 0; i < cirLength; ++i) {
+			if(i > length - 1) {
+				circularNums[i] = nums[i - length];
+			} else {
+				circularNums[i] = nums[i];
+			}
+		}
+
+		Map<Integer, Integer> map = new HashMap<>();
+		map.put(circularNums[cirLength - 1], -1);
+
+		Deque<Integer> stack = new ArrayDeque<>();
+		stack.offerFirst(circularNums[cirLength - 1]);
+
+		for(int i = cirLength - 2; i >=0; --i) {
+			if(!stack.isEmpty() && circularNums[i] >= stack.peekFirst()) {
+				while(!stack.isEmpty() && circularNums[i] >= stack.peekFirst()) {
+					stack.pollFirst();
+				}
+				if(stack.isEmpty()) {
+					map.put(circularNums[i], -1);
+				} else {
+					map.put(circularNums[i], stack.peekFirst());
+				}
+			} else {
+				map.put(circularNums[i], stack.peekFirst());
+			}
+			stack.offerFirst(circularNums[i]);
+		}
+
+		int[] result = new int[length];
+		for(int i = 0; i < length; ++i) {
+			result[i] = map.get(nums[i]);
+		}
+		return result;
+	}
+}
