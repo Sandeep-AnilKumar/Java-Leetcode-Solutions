@@ -4,6 +4,8 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
+
 
 public class NextGreaterElement2 {
 
@@ -63,5 +65,19 @@ public class NextGreaterElement2 {
 			result[i] = map.get(i);
 		}
 		return result;
+	}
+
+	//Much more concise solution. Populate stack with indexes rather than the values and use modulus for array manipulations instead of double array.
+	public int[] nextGreaterElementsBetter(int[] nums) {
+		int[] res = new int[nums.length];
+		Stack<Integer> stack = new Stack<>();
+		for (int i = 2 * nums.length - 1; i >= 0; --i) {
+			while (!stack.empty() && nums[stack.peek()] <= nums[i % nums.length]) {
+				stack.pop();
+			}
+			res[i % nums.length] = stack.empty() ? -1 : nums[stack.peek()];
+			stack.push(i % nums.length);
+		}
+		return res;
 	}
 }
