@@ -16,7 +16,9 @@ public class NextGreaterElement2 {
 		}
 	}
 
-	//Not the right way, so same occurrences of a number have different greater element, because of their positions in the array.
+	//Not the right way, so same occurrences of a number have different greater element, because of their positions in the array. 
+	//So change it to the index of the number
+	//and not the number itself.
 	public static int[] nextGreaterElements(int[] nums) {
 		if(nums == null || nums.length == 0) {
 			return new int[0];
@@ -35,7 +37,7 @@ public class NextGreaterElement2 {
 		}
 
 		Map<Integer, Integer> map = new HashMap<>();
-		map.put(circularNums[cirLength - 1], -1);
+		map.put(cirLength - 1, -1);
 
 		Deque<Integer> stack = new ArrayDeque<>();
 		stack.offerFirst(circularNums[cirLength - 1]);
@@ -46,19 +48,19 @@ public class NextGreaterElement2 {
 					stack.pollFirst();
 				}
 				if(stack.isEmpty()) {
-					map.put(circularNums[i], -1);
+					map.put(i, -1);
 				} else {
-					map.put(circularNums[i], stack.peekFirst());
+					map.put(i, stack.peekFirst());
 				}
 			} else {
-				map.put(circularNums[i], stack.peekFirst());
+				map.put(i, stack.peekFirst());
 			}
 			stack.offerFirst(circularNums[i]);
 		}
 
 		int[] result = new int[length];
 		for(int i = 0; i < length; ++i) {
-			result[i] = map.get(nums[i]);
+			result[i] = map.get(i);
 		}
 		return result;
 	}
