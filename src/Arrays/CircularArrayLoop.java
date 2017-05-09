@@ -75,4 +75,40 @@ public class CircularArrayLoop {
 		int n = nums.length;
 		return i + nums[i] >= 0? (i + nums[i]) % n: n + ((i + nums[i]) % n);
 	}
+
+	//Easier to understand.
+
+	public boolean circularLoopArrayEasy(int[] nums) {
+		if(nums.length == 0){
+			return false;
+		}
+
+		importantLoop:
+			for(int i = 0; i < nums.length; i++){
+				int stepper = i;
+				int origVal = nums[i];
+				do {
+					//Landed on a 0? We've been here, continue
+					if(nums[stepper] == 0){
+						continue importantLoop;
+					}
+					int prev = stepper;
+					stepper = Math.floorMod((stepper + nums[stepper]), nums.length);
+					//Step prev as visited
+					nums[prev] = 0;
+
+					//Check if the loop is 1 long
+					if(prev == stepper){
+						continue importantLoop;
+					}
+					//Switched directions? Say no
+					if((nums[stepper] < 0 && origVal > 0) || (nums[stepper] > 0 && origVal < 0)){
+						//We switched directions, just continue the for loop
+						continue importantLoop;
+					}
+				} while(stepper != i);
+				return true;
+			}
+		return false;
+	}
 }
