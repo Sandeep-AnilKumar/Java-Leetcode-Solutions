@@ -6,7 +6,7 @@ import java.util.List;
 public class BinaryWatch {
 
 	public static void main(String[] args) {
-		int num = 3;
+		int num = 8;
 		List<String> binaryWatch = readBinaryWatch(num);
 		System.out.println("The possible values for the watch are := " + binaryWatch);
 		System.out.println("The total possible values are := " + binaryWatch.size());
