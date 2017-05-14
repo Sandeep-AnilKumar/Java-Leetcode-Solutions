@@ -38,4 +38,25 @@ public class MaxConsecutiveOnes {
 		}
 		return curMax > max ? curMax : max;
 	}
+
+	public static int findMaxConsecutiveOnesBetter(int[] nums) {
+		if(nums == null || nums.length == 0) {
+			return 0;
+		}
+
+		int left = 0;
+		int right = 0;
+		int length = nums.length;
+		int max = 0;
+
+		for(int i = 0; i < length; ++i) {
+			left++;
+			if(nums[i] == 0) {
+				right = left;
+				left = 0;
+			}
+			max = Math.max(max, left + right);
+		}
+		return max;
+	}
 }
