@@ -49,7 +49,6 @@ public class IslandPerimeter {
 
 	//A much better implementation.
 
-
 	public static int islandPerimeterBetter(int[][] grid) {
 		int m = grid.length, n = grid[0].length, perimeter = 0;
 		for (int i = 0; i < m; i++) {
@@ -57,16 +56,16 @@ public class IslandPerimeter {
 				if (grid[i][j] == 0) {
 					continue;
 				}
-				if (i - 1 < 0 || i - 1 >= 0 && grid[i - 1][j] == 0) {
+				if (i - 1 < 0 || grid[i - 1][j] == 0) {
 					perimeter++;
 				}
-				if (j - 1 < 0 || j - 1 >= 0 && grid[i][j - 1] == 0) {
+				if (j - 1 < 0 || grid[i][j - 1] == 0) {
 					perimeter++;
 				}
-				if (i + 1 == m || i + 1 < m && grid[i + 1][j] == 0) {
+				if (i + 1 == m || grid[i + 1][j] == 0) {
 					perimeter++;
 				}
-				if (j + 1 == n || j + 1 < n && grid[i][j + 1] == 0) {
+				if (j + 1 == n || grid[i][j + 1] == 0) {
 					perimeter++;
 				}
 			}
