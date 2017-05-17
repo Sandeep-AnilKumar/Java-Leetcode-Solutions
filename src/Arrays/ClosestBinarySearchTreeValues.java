@@ -118,7 +118,6 @@ public class ClosestBinarySearchTreeValues {
 				result.add(val);
 			}
 		}
-
 		return result;
 	}
 }
