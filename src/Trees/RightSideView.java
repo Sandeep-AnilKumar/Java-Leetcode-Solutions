@@ -24,48 +24,32 @@ public class RightSideView {
 		System.out.println("The right side view of the tree is := " + rightSideView(root));
 	}
 
-
 	public static List<Integer> rightSideView(TreeNode root) {
 		List<Integer> nodes = new ArrayList<>();
 		if(root == null) {
 			return nodes;
 		}
 
-		List<List<Integer>> levels = new ArrayList<>();
-		List<Integer> curLevel = new ArrayList<>();
 		Deque<TreeNode> queue = new ArrayDeque<>();
-
-		curLevel.add(root.val);
-		levels.add(curLevel);
 		queue.offerLast(root);
+
 		TreeNode cur = null;
 		int size = 0;
 
 		while(!queue.isEmpty()) {
 			size = queue.size();
-			curLevel = new ArrayList<>();
-
 			while(size-- > 0) {
 				cur = queue.pollFirst();
 				if(cur.left != null) {
-					curLevel.add(cur.left.val);
 					queue.offerLast(cur.left);
 				}
 				if(cur.right != null) {
-					curLevel.add(cur.right.val);
 					queue.offerLast(cur.right);
 				}
+				if(size == 0) {
+					nodes.add(cur.val);
+				}
 			}
-
-			if(curLevel != null && curLevel.size() > 0) {
-				levels.add(curLevel);
-			}
-		}
-
-		int depth = levels.size();
-		for(int i = 0; i < depth; ++i) {
-			curLevel = levels.get(i); 
-			nodes.add(curLevel.get(curLevel.size() - 1));
 		}
 		return nodes;
 	}
