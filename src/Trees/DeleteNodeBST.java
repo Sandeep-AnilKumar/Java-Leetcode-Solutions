@@ -21,7 +21,7 @@ public class DeleteNodeBST {
 		a.right = d;
 		b.right = e;
 
-		System.out.println("The BST after deleting the node of value 3 is := " + deleteNode(root, 5));
+		System.out.println("The BST after deleting the node of value 5 is := " + deleteNode(root, 5));
 	}
 
 	public static TreeNode deleteNode(TreeNode root, int key) {
@@ -146,6 +146,47 @@ public class DeleteNodeBST {
 		node = new TreeNode(nums[mid]);
 		node.left = createBST(node, nums, start, mid - 1);
 		node.right = createBST(node, nums, mid + 1, end);
+		return node;
+	}
+
+	//A much easier solution.
+
+	public static TreeNode deleteNodeBetter(TreeNode root, int key) {
+		if(root == null) {
+			return root;
+		}
+		else {
+			if(root.val > key) {
+				root.left = deleteNode(root.left, key);
+			}
+			else if(root.val < key) {
+				root.right = deleteNode(root.right, key);
+			}
+			else {
+				if(root.left == null && root.right == null) {
+					root = null;
+				}
+				else if(root.left != null && root.right == null) {
+					root = root.left;
+				}
+				else if(root.left == null && root.right != null) {
+					root = root.right;
+				}
+				else {
+					TreeNode min = findMin(root.right);
+					root.val = min.val;
+					root.right = deleteNode(root.right, min.val);
+				}
+				return root;
+			}
+			return root;
+		}
+	}
+
+	public static TreeNode findMin(TreeNode node) {
+		while(node.left != null) {
+			node = node.left;
+		}
 		return node;
 	}
 }
