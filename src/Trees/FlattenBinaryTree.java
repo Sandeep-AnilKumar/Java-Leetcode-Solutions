@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Stack;
 
 public class FlattenBinaryTree {
-
+	private static TreeNode prev = null;
 	public static void main(String[] args) {
 		TreeNode root = new TreeNode(1);
 		TreeNode a = new TreeNode(10);
@@ -89,13 +89,12 @@ public class FlattenBinaryTree {
 		}
 	}
 
-	public sttaic void flattenRecursiev(TreeNode root) {
+	public static void flattenRecursiev(TreeNode root) {
 		if (root == null) return;
-		flatten(root.right);
-		flatten(root.left);
+		flattenBetter(root.right);
+		flattenBetter(root.left);
 		root.right = prev;
 		root.left = null;
 		prev = root;
 	}
-
 }
