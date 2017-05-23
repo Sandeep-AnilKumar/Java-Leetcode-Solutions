@@ -4,10 +4,10 @@ public class TreeLinkNode {
 	TreeLinkNode left;
 	TreeLinkNode right;
 	TreeLinkNode next;
-	int value;
+	int val;
 
 	TreeLinkNode(int value) {
-		this.value = value;
+		this.val = value;
 		this.left = null;
 		this.right = null;
 		this.next = null;
@@ -18,9 +18,9 @@ public class TreeLinkNode {
 		StringBuffer sb = new StringBuffer();
 
 		TreeLinkNode cur = this;
-		sb.append(cur.value);
-		while(cur != null) {
-			sb.append(" left -> " + cur.left + " right -> " + cur.right + " next -> " + cur.next);
+		sb.append(cur.val);
+		while(cur.next != null) {
+			sb.append(" next -> " + cur.next.val);
 			cur = cur.next;
 		}
 		return sb.toString();
