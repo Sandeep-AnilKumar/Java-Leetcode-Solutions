@@ -32,7 +32,6 @@ public class KillProcesses {
 		List<Integer> killedProcesses = new ArrayList<>();
 		Map<Integer, NaryNode> treeMap = new HashMap<>();
 
-		int index = 0;
 		for(int i = 0; i < pid.size(); ++i) {
 			treeMap.put(pid.get(i), new NaryNode(pid.get(i)));
 		}
@@ -40,26 +39,12 @@ public class KillProcesses {
 		NaryNode cur = null;
 		for(int i = 0; i < ppid.size(); ++i) {
 			if(ppid.get(i) != 0) {
-				if(ppid.get(i) == kill) {
-					index = i;
-				}
 				cur = treeMap.get(ppid.get(i));
 				cur.children.add(treeMap.get(pid.get(i)));
 			}
 		}
 
-		if(index == 0 && ppid.get(index) != kill) {
-			killedProcesses.add(kill);
-			return killedProcesses;
-		}
-
-		NaryNode parent = null;
-		parent = treeMap.get(ppid.get(index));
-		if(parent != null) {
-			traverse(parent, killedProcesses);
-		} else {
-			traverse(treeMap.get(pid.get(index)), killedProcesses);
-		}
+		traverse(treeMap.get(kill), killedProcesses);
 
 		return killedProcesses;
 	}
