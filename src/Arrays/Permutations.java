@@ -8,7 +8,7 @@ import java.util.List;
 public class Permutations {
 
     public static void main(String[] args) {
-        int[] nums = new int[]{1,2,3};
+        int[] nums = new int[]{1,1,2,3};
         List<List<Integer>> result = orderedPermute(nums);
         for(List<Integer> r : result) {
             System.out.print("[");
