@@ -18,11 +18,11 @@ public class Trie {
         int index = 0;
         for(int i = 0; i < length; ++i) {
             index = word.charAt(i) - 'a';
-            if(current.children[index] == null) {
-                current.children[index] = new TrieNode();
+            if(current.next[index] == null) {
+                current.next[index] = new TrieNode();
             }
-            current.children[index].c = word.charAt(i);
-            current = current.children[index];
+            current.next[index].c = word.charAt(i);
+            current = current.next[index];
         }
         current.endOfWord = true;
     }
@@ -38,10 +38,10 @@ public class Trie {
         int index = 0;
         for(int i = 0; i < length; ++i) {
             index = word.charAt(i) - 'a';
-            if(current.children[index] == null) {
+            if(current.next[index] == null) {
                 return false;
             }
-            current = current.children[index];
+            current = current.next[index];
         }
         return current.endOfWord;
     }
@@ -58,10 +58,10 @@ public class Trie {
         int index = 0;
         for(int i = 0; i < length; ++i) {
             index = prefix.charAt(i) - 'a';
-            if(current.children[index] == null) {
+            if(current.next[index] == null) {
                 return false;
             }
-            current = current.children[index];
+            current = current.next[index];
         }
         return true;
     }
@@ -79,9 +79,9 @@ public class Trie {
 
         for(int i = 0; i < length; ++i) {
             index = word.charAt(i) - 'a';
-            if(current.children[index] != null) {
-                result += current.children[index].c;
-                current = current.children[index];
+            if(current.next[index] != null) {
+                result += current.next[index].c;
+                current = current.next[index];
 
                 if(current.endOfWord) {
                     prevMatch = i + 1;

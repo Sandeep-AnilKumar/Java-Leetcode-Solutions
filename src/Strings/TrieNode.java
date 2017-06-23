@@ -2,12 +2,12 @@ package Strings;
 
 public class TrieNode {
     char c;
-    TrieNode[] children;
+    TrieNode[] next;
     boolean endOfWord;
 
     public TrieNode() {
         c = '0';
-        children = new TrieNode[26];
+        next = new TrieNode[26];
         endOfWord = false;
     }
 
@@ -16,8 +16,8 @@ public class TrieNode {
         StringBuilder sb = new StringBuilder();
         StringBuilder sbc = new StringBuilder();
         for(int i = 0; i < 26; ++i) {
-            if(this.children[i]  != null) {
-                sbc.append(this.children[i].c + " ");
+            if(this.next[i]  != null) {
+                sbc.append(this.next[i].c + " ");
             }
         }
         sb.append("[ " + this.c + ",{ " + sbc.toString() + "}, " + this.endOfWord + " ]");
