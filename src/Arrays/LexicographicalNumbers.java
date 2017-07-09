@@ -5,29 +5,33 @@ import java.util.List;
 
 public class LexicographicalNumbers {
 
-    public static void main(String[] args) {
-        int n = 13;
-        List<Integer> result = lexicalOrder(n);
-    }
+	public static void main(String[] args) {
+		int n = 13;
+		LexicographicalNumbers ln = new LexicographicalNumbers();
+		System.out.println(ln.lexicalOrder(n));
+	}
 
-    public static List<Integer> lexicalOrder(int n) {
-        List<Integer> res = new ArrayList<>();
-        for(int i=1;i<10;++i){
-            dfs(i, n, res); 
-        }
-        return res;
-    }
+	public List<Integer> lexicalOrder(int n) {
+		List<Integer> lex = new ArrayList<>();
 
-    public static void dfs(int cur, int n, List<Integer> res){
-        if(cur>n)
-            return;
-        else{
-            res.add(cur);
-            for(int i=0;i<10;++i){
-                if(10*cur+i>n)
-                    return;
-                dfs(10*cur+i, n, res);
-            }
-        }
-    }
+		for(int m = 1; m <= n && m < 10; ++m) {
+			lex.add(m);
+			addNums(lex, m, n);
+		}
+		return lex;
+	}
+
+	public void addNums(List<Integer> lex, int cur, int n) {
+		int temp = 0;
+		for(int k = 0; k <= 9; ++k) {
+			if(cur * 10 + k <= n) {
+				temp = cur * 10 + k;
+				lex.add(temp);
+				addNums(lex, temp, n);
+			} else {
+				break;
+			}
+		}
+		return;
+	}
 }
