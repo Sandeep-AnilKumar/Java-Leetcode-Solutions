@@ -27,4 +27,18 @@ public class FindTheDifference {
 		}
 		return ' ';
 	}
+
+	//Better Solution
+
+	public char findTheDifferenceBetter(String s, String t) {
+		int x = 0;
+		for(char c: s.toCharArray()) {
+			x = x ^ (c - 'a');
+		}
+
+		for(char c: t.toCharArray()) {
+			x = x ^ (c - 'a');
+		}
+		return (char) ('a' + x);
+	}
 }
