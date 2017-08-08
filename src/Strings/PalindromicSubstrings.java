@@ -11,9 +11,7 @@ public class PalindromicSubstrings {
 		if(s == null || s.length() == 0) {
 			return 0;
 		}
-
 		int length = s.length();
-
 		int start = 0;
 		int end = length - 1;
 		char[] chars = s.toCharArray();
@@ -56,9 +54,7 @@ public class PalindromicSubstrings {
 				}
 				if (dp[i][j]==1) res++;
 			}
-
 		}
-
 		return res;
 	}
 }
