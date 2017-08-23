@@ -58,38 +58,36 @@ public class MaximumAverageSubarray2 {
 
 	//Using Convex Hull Solution
 
-	public class Solution {
-		public double findMaxAverage(int[] nums, int k) {
-			int n = nums.length;
-			int[] sums = new int[n + 1];
-			int[] dp = new int[n + 1];
-			
-			for (int i = 1; i <= n; i++) {
-				sums[i] = sums[i - 1] + nums[i - 1];
-			}
-			
-			double res = sums[n] / n;
-			double tmp = res;
-			int l = 0, r = -1;
-			
-			for (int i = k; i <= n; i++) {
-				int t = i - k;
-				
-				while (l < r && avg(dp[r], t, sums) <= avg(dp[r - 1], t, sums)) r--;
-				r++;
-				
-				dp[r] = t;
-				
-				while (l < r && avg(dp[l], i, sums) <= avg(dp[l + 1], i, sums)) l++;
-				
-				tmp = avg(dp[l], i, sums);
-				if (tmp > res) res = tmp;
-			}
-			return res;
+	public double findMaxAverageConvexHull(int[] nums, int k) {
+		int n = nums.length;
+		int[] sums = new int[n + 1];
+		int[] dp = new int[n + 1];
+
+		for (int i = 1; i <= n; i++) {
+			sums[i] = sums[i - 1] + nums[i - 1];
 		}
 
-		private double avg (int i, int j, int[] nums) {
-			return (double) (nums[j] - nums[i]) / (j - i);
+		double res = sums[n] / n;
+		double tmp = res;
+		int l = 0, r = -1;
+
+		for (int i = k; i <= n; i++) {
+			int t = i - k;
+
+			while (l < r && avg(dp[r], t, sums) <= avg(dp[r - 1], t, sums)) r--;
+			r++;
+
+			dp[r] = t;
+
+			while (l < r && avg(dp[l], i, sums) <= avg(dp[l + 1], i, sums)) l++;
+
+			tmp = avg(dp[l], i, sums);
+			if (tmp > res) res = tmp;
 		}
+		return res;
+	}
+
+	private double avg (int i, int j, int[] nums) {
+		return (double) (nums[j] - nums[i]) / (j - i);
 	}
 }
