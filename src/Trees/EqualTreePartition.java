@@ -3,7 +3,9 @@ package Trees;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EqualTreePartition {
 
@@ -27,7 +29,7 @@ public class EqualTreePartition {
 
 		System.out.println("Can the tree be divided into two equal partitions? := " + eq.checkEqualTree(root));
 	}
-	
+
 	//Inorder solution won't work in some cases.
 	public boolean checkEqualTree(TreeNode root) {
 		if(root == null) return false;
@@ -65,5 +67,45 @@ public class EqualTreePartition {
 			}
 		}
 		return inorder;
+	}
+
+	//A solution to find the total and then traverse again.
+
+	boolean result = false;
+	public boolean checkEqualTreeDFS(TreeNode root) {
+		long sum = total(root, 0);
+		if(sum % 2 != 0) return false;
+
+		result = false;
+		total(root, sum);
+		return result;
+	}
+	private long total(TreeNode root, long sum) {
+		if(root == null) return 0;
+		if(root.left == null && root.right == null) return root.val;
+
+		long left = total(root.left, sum);
+		long right = total(root.right, sum);
+
+		if((root.left != null && left == sum/2) || (root.right != null && right == sum/2)) {
+			result = true;
+		}
+		return root.val + left + right;
+	}
+
+	//An excellent solution to traverse only once.
+
+	public boolean checkEqualTreeMap(TreeNode root) {
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		int sum = getsum(root, map);
+		if(sum == 0)return map.getOrDefault(sum, 0) > 1;
+		return sum%2 == 0 && map.containsKey(sum/2);
+	}
+
+	public int getsum(TreeNode root, Map<Integer, Integer> map ){
+		if(root == null)return 0;
+		int cur = root.val + getsum(root.left, map) + getsum(root.right, map);
+		map.put(cur, map.getOrDefault(cur,0) + 1);
+		return cur;
 	}
 }
