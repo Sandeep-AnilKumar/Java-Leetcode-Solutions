@@ -80,4 +80,7 @@ public class SpiralMatrix {
 			}
 		}
 	}
+
+	//An easier version.
+
 }

@@ -10,7 +10,7 @@ public class TreeNode {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(this.val + ", left -> " + this.left + ", right -> " + this.right);
+		sb.append(this.val);
 		return sb.toString();
 	}
 }
