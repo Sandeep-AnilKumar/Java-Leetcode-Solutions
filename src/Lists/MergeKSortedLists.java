@@ -43,7 +43,7 @@ public class MergeKSortedLists {
 	}
 
 	//Will be TLE for very large amount of ListNodes having single node.
-	
+
 	public ListNode mergeKLists(ListNode[] lists) {
 		int k = lists.length;
 		ListNode merged = null;
@@ -86,6 +86,34 @@ public class MergeKSortedLists {
 			cur.next = first;
 		} else if(first == null && second != null) {
 			cur.next = second;
+		}
+		return merged.next;
+	}
+
+	//A second brute-force easier possible solution
+
+	public ListNode mergeKListsBetter(ListNode[] lists) {
+		int k = lists.length;
+		int[] count = new int[1000001];
+		ListNode cur = null;
+
+		for(int i = 0; i < k; ++i) {
+			cur = lists[i];
+
+			while(cur != null) {
+				count[cur.val + 500000]++;
+				cur = cur.next;
+			}
+		}
+
+		ListNode merged = new ListNode(0);
+		ListNode head = merged;
+
+		for(int i = 0; i < count.length; ++i) {
+			while(count[i]-- > 0) {
+				head.next = new ListNode(i - 500000);
+				head = head.next;
+			}
 		}
 		return merged.next;
 	}
