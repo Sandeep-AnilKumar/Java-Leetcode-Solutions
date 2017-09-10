@@ -4,22 +4,27 @@ public class ReverseString2 {
 
 	public static void main(String[] args) {
 		String s = "abcdefghi";
-		System.out.println("The reversed string is := " + reverseStr(s, 4));
+		System.out.println("The reversed string is := " + new ReverseString2().reverseStr(s, 3));
 	}
 
-	public static String reverseStr(String s, int k) {
-		if(s == null || s.length() == 0) return s;
-
+	public String reverseStr(String s, int k) {
 		char[] chars = s.toCharArray();
-		int start = 0;
-		int end = chars.length - 1;
+		int length = chars.length;
 
+		for(int i = 0; i < length; ++i) {
+			reverseChars(chars, i, i + k <= length ? i + k - 1 : length - 1);
+			i += 2 * k - 1;
+		}
+
+		return new String(chars);
+	}
+
+	public void reverseChars(char[] chars, int start, int end) {
 		while(start < end) {
 			chars[start] = (char)(((int)(chars[start])) ^ ((int)(chars[end])));
 			chars[end] = (char)(((int)(chars[start])) ^ ((int)(chars[end])));
 			chars[start] = (char)(((int)(chars[start++])) ^ ((int)(chars[end--])));
 		}
-		return new String(chars);
 	}
 }
 
