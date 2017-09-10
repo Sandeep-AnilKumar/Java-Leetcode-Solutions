@@ -8,26 +8,18 @@ public class ReverseString2 {
 	}
 
 	public static String reverseStr(String s, int k) {
-		if(s == null || s.length() == 0 || k <= 0) {
-			return s;
+		if(s == null || s.length() == 0) return s;
+
+		char[] chars = s.toCharArray();
+		int start = 0;
+		int end = chars.length - 1;
+
+		while(start < end) {
+			chars[start] = (char)(((int)(chars[start])) ^ ((int)(chars[end])));
+			chars[end] = (char)(((int)(chars[start])) ^ ((int)(chars[end])));
+			chars[start] = (char)(((int)(chars[start++])) ^ ((int)(chars[end--])));
 		}
-
-		int length = s.length();
-		int start = 0, end = 0;
-		char[] cArray = s.toCharArray();
-		char temp;
-
-		for(int i = 0; i < length; i += 2 * k) {
-			end = i + k - 1 <= length - 1 ? i + k - 1 : length - 1;
-			start = i;
-
-			while(start < end) {
-				temp = cArray[start];
-				cArray[start++] = cArray[end];
-				cArray[end--] = temp;
-			}
-		}
-		return new String(cArray);
+		return new String(chars);
 	}
 }
 
