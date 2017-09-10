@@ -32,4 +32,22 @@ public class Heaters {
 		}
 		return max_radius;
 	}
+
+	//O(m + n).
+	public int findRadiusBetter(int[] houses, int[] heaters) {
+		if(houses == null || houses.length == 0 || heaters == null || heaters.length == 0) return 0;
+
+		Arrays.sort(houses);
+		Arrays.sort(heaters);
+		
+		int num_heaters = heaters.length;
+		int max_radius = 0;
+		int i = 0;
+
+		for(int house: houses) {
+			while(i + 1 < num_heaters && Math.abs(heaters[i] - house) >= Math.abs(heaters[i + 1] - house)) i++;
+			max_radius = Math.max(max_radius, Math.abs(heaters[i] - house));
+		}
+		return max_radius;
+	}
 }
