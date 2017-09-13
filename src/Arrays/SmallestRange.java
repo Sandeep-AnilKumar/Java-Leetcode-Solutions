@@ -2,30 +2,32 @@ package Arrays;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class SmallestRange {
 
 	public static void main(String[] args) {
 		SmallestRange range = new SmallestRange();
 		List<List<Integer>> nums = new ArrayList<>();
-		List<Integer> num1 = Arrays.asList(1,45,67,72);
-		List<Integer> num2 = Arrays.asList(4,7,9,15,21,32,45);
-		List<Integer> num3 = Arrays.asList(0,28,35,67,89,99);
+		List<Integer> num1 = Arrays.asList(4,10,15,24,26);
+		List<Integer> num2 = Arrays.asList(0,9,12,20);
+		List<Integer> num3 = Arrays.asList(5,18,22,30);
 
 		nums.add(num1);
 		nums.add(num2);
 		nums.add(num3);
 
 		System.out.print("The smallest range that includes at least one element from all the lists is := [");
-		int[] res = range.smallestRange(nums);
+		int[] res = range.smallestRangeBetter(nums);
 		for(int n: res) {
 			System.out.print(n + ", ");
 		}
 		System.out.println("]");
 	}
-	
+
 	//Works well, but has issues with few test cases.
 	class Num implements Comparable<Num>{
 		int listNum;
@@ -94,5 +96,65 @@ public class SmallestRange {
 			curIndex = q.get(0).listNum;
 		}
 		return res;  
+	}
+
+	class RangeNum {
+		int value;
+		int listIndex;
+
+		public RangeNum(int value, int listIndex) {
+			this.value = value;
+			this.listIndex = listIndex;
+		}
+	}
+
+	//A better solution
+	public int[] smallestRangeBetter(List<List<Integer>> nums) {
+		int k = nums.size();
+		int[] next = new int[k];
+
+		PriorityQueue<RangeNum> min = new PriorityQueue<>(new Comparator<RangeNum>() {
+			@Override
+			public int compare(RangeNum r1, RangeNum r2) {
+				return r1.value - r2.value;
+			}
+		});
+
+		PriorityQueue<RangeNum> max = new PriorityQueue<>(new Comparator<RangeNum>() {
+			@Override
+			public int compare(RangeNum r1, RangeNum r2) {
+				return r2.value - r1.value;
+			}
+		});
+
+		for(int i = 0; i < k; ++i) {
+			min.offer(new RangeNum(nums.get(i).get(0), i));
+			max.offer(new RangeNum(nums.get(i).get(0), i));
+		}
+
+		int curMinIndex = min.peek().listIndex;
+		int curMin = Integer.MAX_VALUE;
+		int[] range = new int[2];
+		RangeNum tempMin = null;
+		RangeNum tempMax = null;
+
+		while(!min.isEmpty() && !max.isEmpty() && next[curMinIndex] < nums.get(curMinIndex).size()) {
+			tempMin = min.poll();
+			tempMax = max.peek();
+
+			if(tempMax.value - tempMin.value < curMin) {
+				curMin = tempMax.value - tempMin.value;
+				range[0] = tempMin.value;
+				range[1] = tempMax.value;
+			}
+
+			next[curMinIndex]++;
+			curMinIndex = tempMin.listIndex;
+			if(next[curMinIndex] < nums.get(curMinIndex).size()) {
+				min.offer(new RangeNum(nums.get(curMinIndex).get(next[curMinIndex]), curMinIndex));
+				max.offer(new RangeNum(nums.get(curMinIndex).get(next[curMinIndex]), curMinIndex));
+			}
+		}
+		return range;
 	}
 }
