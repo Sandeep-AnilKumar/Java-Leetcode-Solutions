@@ -112,6 +112,10 @@ public class SmallestRange {
 	public int[] smallestRangeBetter(List<List<Integer>> nums) {
 		int k = nums.size();
 		int[] next = new int[k];
+		int curMin = Integer.MAX_VALUE;
+		int[] range = new int[2];
+		RangeNum tempMin = null;
+		int curMax = Integer.MIN_VALUE;
 
 		PriorityQueue<RangeNum> min = new PriorityQueue<>(new Comparator<RangeNum>() {
 			@Override
@@ -120,39 +124,27 @@ public class SmallestRange {
 			}
 		});
 
-		PriorityQueue<RangeNum> max = new PriorityQueue<>(new Comparator<RangeNum>() {
-			@Override
-			public int compare(RangeNum r1, RangeNum r2) {
-				return r2.value - r1.value;
-			}
-		});
-
 		for(int i = 0; i < k; ++i) {
 			min.offer(new RangeNum(nums.get(i).get(0), i));
-			max.offer(new RangeNum(nums.get(i).get(0), i));
+			curMax = Math.max(curMax, nums.get(i).get(0));
 		}
 
 		int curMinIndex = min.peek().listIndex;
-		int curMin = Integer.MAX_VALUE;
-		int[] range = new int[2];
-		RangeNum tempMin = null;
-		RangeNum tempMax = null;
 
-		while(!min.isEmpty() && !max.isEmpty() && next[curMinIndex] < nums.get(curMinIndex).size()) {
+		while(!min.isEmpty() && next[curMinIndex] < nums.get(curMinIndex).size()) {
 			tempMin = min.poll();
-			tempMax = max.peek();
 
-			if(tempMax.value - tempMin.value < curMin) {
-				curMin = tempMax.value - tempMin.value;
+			if(curMax - tempMin.value < curMin) {
+				curMin = curMax - tempMin.value;
 				range[0] = tempMin.value;
-				range[1] = tempMax.value;
+				range[1] = curMax;
 			}
 
 			next[curMinIndex]++;
 			curMinIndex = tempMin.listIndex;
 			if(next[curMinIndex] < nums.get(curMinIndex).size()) {
 				min.offer(new RangeNum(nums.get(curMinIndex).get(next[curMinIndex]), curMinIndex));
-				max.offer(new RangeNum(nums.get(curMinIndex).get(next[curMinIndex]), curMinIndex));
+				curMax = Math.max(curMax, nums.get(curMinIndex).get(next[curMinIndex]));
 			}
 		}
 		return range;
