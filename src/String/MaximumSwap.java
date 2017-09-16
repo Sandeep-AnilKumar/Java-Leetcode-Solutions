@@ -1,8 +1,5 @@
 package String;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MaximumSwap {
 
 	public static void main(String[] args) {
@@ -13,17 +10,7 @@ public class MaximumSwap {
 
 	public int maximumSwap(int num) {
 		if(num == 0) return 0;
-		List<Integer> digitList = new ArrayList<>();
-		while(num > 0) {
-			digitList.add(0, num % 10);
-			num /= 10;
-		}
-		char[] digits = new char[digitList.size()];
-		int index = 0;
-
-		for(int d: digitList) {
-			digits[index++] = (char)(d + '0');
-		}
+		char[] digits = String.valueOf(num).toCharArray(); 
 		int length = digits.length;
 		String max = new String(digits);
 		char curMax;
