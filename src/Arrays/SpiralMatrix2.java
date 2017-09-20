@@ -4,12 +4,12 @@ public class SpiralMatrix2 {
 
 	public static void main(String[] args) {
 		SpiralMatrix2 spiral = new SpiralMatrix2();
-		int n = 8;
+		int n = 5;
 		System.out.println("The matrix for n := " + n + " is := ");
 		int[][] matrix = spiral.generateMatrix(n);
 		for(int[] rows: matrix) {
 			for(int i: rows) {
-				System.out.print(i + ", ");
+				System.out.print(i + ", \t");
 			}
 			System.out.println("");
 		}
