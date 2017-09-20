@@ -59,29 +59,32 @@ public class SpiralMatrix2 {
 
 	//Easy solution.
 
-	public int[][] spiralMatrixBetter(int n) {
-		int[][] ret = new int[n][n];
-		int left = 0,top = 0;
-		int right = n - 1,down = n - 1;
-		int count = 1;
-		while (left <= right) {
-			for (int j = left; j <= right; j++) {
-				ret[top][j] = count++;
+	public int[][] generateMatrixBetter(int n) {
+		int top = 0, bottom = n - 1, left = 0, right = n - 1;
+		int[][] result = new int[n][n];
+		int start = 1;
+
+		while(left <= right && top <= bottom) {
+			for(int j = left, i = top; j <= right; ++j) {
+				result[i][j] = start++;
 			}
-			top++;
-			for (int i = top; i <= down; i++) {
-				ret[i][right] = count ++;
+
+			for(int i = top + 1, j = right; i <= bottom; ++i) {
+				result[i][j] = start++;
 			}
-			right--;
-			for (int j = right; j >= left; j--) {
-				ret[down][j] = count ++;
+
+			if(left < right && top < bottom) {
+				for(int j = right - 1, i = bottom; j >= left; --j) {
+					result[i][j] = start++;
+				}
+
+				for(int i = bottom - 1, j = left; i >= top + 1; --i) {
+					result[i][j] = start++;
+				}
 			}
-			down--;
-			for (int i = down; i >= top; i--) {
-				ret[i][left] = count ++;
-			}
-			left++;
+
+			top++; bottom--; left++; right--;
 		}
-		return ret;
+		return result;
 	}
 }
