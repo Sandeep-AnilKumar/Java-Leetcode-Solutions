@@ -3,39 +3,40 @@ package Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-class MapNode<K, V> {
-	private K key;
-	private V value;
-	private MapNode<K,V> next;
+ class Hashmap<K,V> {
 
-	public MapNode(K key, V value) {
-		this.key = key;
-		this.value = value;
-		this.next = null;
+	static class MapNode<K, V> {
+		private K key;
+		private V value;
+		private MapNode<K,V> next;
+
+		public MapNode(K key, V value) {
+			this.key = key;
+			this.value = value;
+			this.next = null;
+		}
+
+		public K getKey() {
+			return this.key;
+		}
+
+		public V getValue() {
+			return this.value;
+		}
+
+		public MapNode<K, V> getNext() {
+			return this.next;
+		}
+
+		public void setNext(MapNode<K, V> next) {
+			this.next = next;
+		}
 	}
 
-	public K getKey() {
-		return this.key;
-	}
-
-	public V getValue() {
-		return this.value;
-	}
-
-	public MapNode<K, V> getNext() {
-		return this.next;
-	}
-
-	public void setNext(MapNode<K, V> next) {
-		this.next = next;
-	}
-}
-
-class HashMapOps<K,V> {
 	private int size;
 	private MapNode<K,V>[] bucket;
 
-	public HashMapOps(int capacity) {
+	public Hashmap(int capacity) {
 		this.bucket = new MapNode[nextPrime(capacity)];
 		this.size = 0;
 	}
@@ -137,7 +138,7 @@ class HashMapOps<K,V> {
 
 public class Map {
 	public static void main(String[] args) {
-		HashMapOps<Integer, Integer> hashMap = new HashMapOps<>(5);
+		Hashmap<Integer, Integer> hashMap = new Hashmap<>(5);
 		Scanner in = new Scanner(System.in);
 		int  choice = 0;
 		int key = 0;
