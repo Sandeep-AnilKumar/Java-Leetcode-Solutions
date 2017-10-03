@@ -3,7 +3,7 @@ package Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
- class Hashmap<K,V> {
+class Hashmap<K,V> {
 
 	static class MapNode<K, V> {
 		private K key;
@@ -136,7 +136,7 @@ import java.util.Scanner;
 	}
 }
 
-public class Map {
+public class MapImpl {
 	public static void main(String[] args) {
 		Hashmap<Integer, Integer> hashMap = new Hashmap<>(5);
 		Scanner in = new Scanner(System.in);
