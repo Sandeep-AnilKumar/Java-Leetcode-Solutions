@@ -12,6 +12,7 @@ public class MinimumWindowSubstring {
 	public static void main(String[] args) {
 		String s = "ADOBEBAEFCBANC";
 		String t = "ABC";
+		
 		System.out.println("The minimum window substring is := " + new MinimumWindowSubstring().minWindow(s, t));
 	}
 
