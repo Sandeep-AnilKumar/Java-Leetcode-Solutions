@@ -56,17 +56,15 @@ public class GrayCode {
 	}
 
 	//No need to reverse
-
 	public List<Integer> grayCodeBetter(int n) {
 		List<Integer> list = new ArrayList<>();
 		if(n == 0) return new ArrayList<>(Arrays.asList(0));
 
 		list.add(0);
-		list.add(1);
 		int cur = 0;
 		int size = 0;
 
-		for(int i = 1; i < n; ++i) {
+		for(int i = 0; i < n; ++i) {
 			cur = 1 << i;
 			size = list.size();
 
@@ -75,5 +73,15 @@ public class GrayCode {
 			}
 		}
 		return list;
+	}
+
+	//The most simple: result(i) = i ^ (i/2);
+	public List<Integer> grayCodeBest(int n) {
+		List<Integer> result = new ArrayList<>();
+		int size = 1 << n;
+		for (int i = 0; i < size; i++) {
+			result.add(i ^ (i >> 1));
+		}
+		return result;
 	}
 }
