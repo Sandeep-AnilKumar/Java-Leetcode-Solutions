@@ -1,10 +1,14 @@
 package Strings;
 
-public class LongestSubstringWithoutRepeatingCharacters {
+/**
+ * @author sandeepa
+ */
+
+public class LongestSubstringWithoutRepeatingChars {
 
 	public static void main(String[] args) {
 		String s = "pwwkew";
-		System.out.println("Longest substring without repeating characters is := " + new LongestSubstringWithoutRepeatingCharacters().lengthOfLongestSubstring(s));
+		System.out.println("The longest substring without repetaing characters is := " + new LongestSubstringWithoutRepeatingChars().lengthOfLongestSubstring(s));
 	}
 
 	public int lengthOfLongestSubstring(String s) {
