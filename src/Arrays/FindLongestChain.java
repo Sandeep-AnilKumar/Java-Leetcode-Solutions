@@ -1,6 +1,7 @@
 package Arrays;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -12,7 +13,7 @@ public class FindLongestChain {
 
 	public static void main(String[] args) {
 		int[][] pairs = {{-6,9},{1,6},{8,10},{-1,4},{-6,-2},{-9,8},{-5,3},{0,3}};
-		System.out.println("The length of the longest pair chain is := " + new FindLongestChain().findLongestChain(pairs));
+		System.out.println("The length of the longest pair chain is := " + new FindLongestChain().findLongestChainBetter(pairs));
 	}
 
 	public int findLongestChain(int[][] pairs) {
@@ -45,5 +46,29 @@ public class FindLongestChain {
 			System.out.print("] -> ");
 		}
 		return count;
+	}
+
+	//Dp
+	public int findLongestChainBetter(int[][] pairs) {
+		int n  = pairs.length;
+		Arrays.sort(pairs, (a , b)->{
+			if(a[0] == b[0]){
+				return a[1] - b[1];
+			} else {
+				return a[0] - b[0]; 
+			}
+		});  
+
+		int[] dp = new int[n];
+		Arrays.fill(dp, 1);
+
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < i; j++){
+				if(pairs[j][1] < pairs[i][0]){
+					dp[i] = Math.max(dp[i], dp[j] + 1); 
+				}
+			}
+		}
+		return dp[n - 1];
 	}
 }
