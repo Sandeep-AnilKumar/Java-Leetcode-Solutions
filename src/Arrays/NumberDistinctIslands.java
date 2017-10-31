@@ -52,7 +52,6 @@ public class NumberDistinctIslands {
 		return;
 	}
 
-
 	int[][] grid;
 	boolean[][] seen;
 	ArrayList<Integer> shape;
