@@ -1,40 +1,50 @@
 package Strings;
 
-public class AtoI {
+/**
+ * @author sandeepa
+ */
 
-    public static void main(String[] args) {
-        String s = "         010";
-        System.out.println("The returned Integer value is := " + myAtoi(s));
-    } 
-
-    public static int myAtoi(String str) {
-        int index = 0, sign = 1, total = 0;
-        if(str.length() == 0) {
-            return 0;
-        }
-
-        while(str.charAt(index) == ' ' && index < str.length()) {
-            index ++;
-        }
-
-        if(str.charAt(index) == '+' || str.charAt(index) == '-') {
-            sign = str.charAt(index) == '+' ? 1 : -1;
-            index ++;
-        }
-
-        while(index < str.length()) {
-            int digit = str.charAt(index) - '0';
-            if(digit < 0 || digit > 9) {
-                break;
+public class AtoI {	
+    public int myAtoi(String str) {
+        if(str == null || str.length() == 0) return 0;
+        
+        long value = 0;
+        boolean negative = false, positive = false, endWhiteSpace = false;
+        int length = str.length();
+        char c;
+        
+        for(int i = 0; i < length; ++i) {
+            c = str.charAt(i);
+            if(c == ' ' && !endWhiteSpace) continue;
+            
+            endWhiteSpace = true;
+            
+            if(!isInt(c) && c != '-' && c != '+') break;
+            
+            if(c == '-' && !negative && !positive) {
+                negative = true;
+                continue;
+            } else if (c == '-' && (positive || negative)) break;
+            
+            if(c == '+' && !negative && !positive) {
+                positive = true;
+                continue;
+            } else if (c == '+' && (positive || negative)) break;
+            
+            if(isInt(c)) {
+                value = value * 10 + (c - '0');
+                if(value > Integer.MAX_VALUE) break;
             }
-
-            if(Integer.MAX_VALUE/10 < total || Integer.MAX_VALUE/10 == total && Integer.MAX_VALUE %10 < digit) {
-                return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
-            }
-
-            total = 10 * total + digit;
-            index ++;
         }
-        return total * sign;
+
+        if(!negative && value > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+        else if(negative && (value - 1) >= Integer.MAX_VALUE) return Integer.MIN_VALUE;
+        return negative ? (int) value * -1 : (int) value;
+    }
+    
+    public boolean isInt(char c) {
+        int asciiValue = (int) c;
+        if(asciiValue >= 48 && asciiValue <= 57) return true;
+        return false;
     }
 }
