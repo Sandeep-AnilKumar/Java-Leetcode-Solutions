@@ -22,13 +22,11 @@ public class AtoI {
             if(!isInt(c) && c != '-' && c != '+') break;
             
             if(c == '-' && !negative && !positive) {
-                negative = true;
-                continue;
+                negative = true; continue;
             } else if (c == '-' && (positive || negative)) break;
             
             if(c == '+' && !negative && !positive) {
-                positive = true;
-                continue;
+                positive = true; continue;
             } else if (c == '+' && (positive || negative)) break;
             
             if(isInt(c)) {

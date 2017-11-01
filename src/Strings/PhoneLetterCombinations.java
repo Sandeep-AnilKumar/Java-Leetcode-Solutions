@@ -15,7 +15,7 @@ Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
 public class PhoneLetterCombinations {
 
     public static void main(String[] args) {
-        String digits = "7263337";
+        String digits = "53382633";
         List<String> combo = letterCombinations(digits);
         System.out.println("Total combo:" + combo.size());
         System.out.println("The letter combinations are:\n");
