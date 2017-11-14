@@ -10,6 +10,7 @@
 .settings
 .classpath
 target
+/bin/
 
 # Packages #
 ############
