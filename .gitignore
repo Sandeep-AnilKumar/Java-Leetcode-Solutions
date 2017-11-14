@@ -6,9 +6,7 @@
 *.exe
 *.o
 *.so
-.project
 .settings
-.classpath
 target
 /bin/
 
