@@ -13,22 +13,22 @@ public class NumberOfAtoms {
 	public static void main(String[] args) {
 		NumberOfAtoms atoms = new NumberOfAtoms();
 		String formula = "K4(ON(SO3)2)2";
-		//		System.out.println("The number of atoms in the chemical formula is := " + atoms.countOfAtoms(formula));
-		//
-		//		formula = "H2O";
-		//		System.out.println("The number of atoms in the chemical formula is := " + atoms.countOfAtoms(formula));
-		//
-		//		formula = "Mg(OH)2";
-		//		System.out.println("The number of atoms in the chemical formula is := " + atoms.countOfAtoms(formula));
-		//
-		//		formula = "(H2O2)";
-		//		System.out.println("The number of atoms in the chemical formula is := " + atoms.countOfAtoms(formula));
-		//
-		//		formula = "((HHe28Be26He)9)34";
-		//		System.out.println("The number of atoms in the chemical formula is := " + atoms.countOfAtoms(formula));
-		//
-		//		formula = "(Db40Hs6Sc10I28IrBe22)8((Np25Lu36Ge46)46(Ta28Lv16Fe38Sn11PbCa23Ta37)26(Li35Hf11I38Po43Sg10Tl19BrZn24)19(Au3CePa23Ac36Hs7Es35AlTlGdRa7)34(Nb38Cu7Cd14)16)13";
-		//		System.out.println("The number of atoms in the chemical formula is := " + atoms.countOfAtoms(formula));
+		System.out.println("The number of atoms in the chemical formula is := " + atoms.countOfAtoms(formula));
+
+		formula = "H2O";
+		System.out.println("The number of atoms in the chemical formula is := " + atoms.countOfAtoms(formula));
+
+		formula = "Mg(OH)2";
+		System.out.println("The number of atoms in the chemical formula is := " + atoms.countOfAtoms(formula));
+
+		formula = "(H2O2)";
+		System.out.println("The number of atoms in the chemical formula is := " + atoms.countOfAtoms(formula));
+
+		formula = "((HHe28Be26He)9)34";
+		System.out.println("The number of atoms in the chemical formula is := " + atoms.countOfAtoms(formula));
+
+		formula = "(Db40Hs6Sc10I28IrBe22)8((Np25Lu36Ge46)46(Ta28Lv16Fe38Sn11PbCa23Ta37)26(Li35Hf11I38Po43Sg10Tl19BrZn24)19(Au3CePa23Ac36Hs7Es35AlTlGdRa7)34(Nb38Cu7Cd14)16)13";
+		System.out.println("The number of atoms in the chemical formula is := " + atoms.countOfAtoms(formula));
 
 		formula = "((A2)24(B)33(C)21(D5)15(E5)16)1";
 		System.out.println("The number of atoms in the chemical formula is := " + atoms.countOfAtoms(formula));
