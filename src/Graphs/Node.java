@@ -55,4 +55,16 @@ public class Node {
 	public void setUnvisited() {
 		this.state = State.Unvisited;
 	}
+
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(this.val + " -> [");
+		for(int index = 0; index < adjacent.size(); ++index) {
+			sb.append(adjacent.get(index).val);
+			if(index != adjacent.size() - 1) sb.append(" ,");
+		}
+		sb.append("]");
+		return sb.toString();
+	}
 }
