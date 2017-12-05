@@ -56,6 +56,19 @@ public class Node {
 		this.state = State.Unvisited;
 	}
 
+	public boolean isVisiting() {
+		return this.state == State.Visiting;
+	}
+
+	public boolean isVisited() {
+		return this.state == State.Visited;
+	}
+
+	public boolean isUnvisited() {
+		return this.state == State.Unvisited;
+	}
+
+
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
