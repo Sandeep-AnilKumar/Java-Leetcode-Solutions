@@ -75,7 +75,7 @@ public class Node {
 		sb.append(this.val + " -> [");
 		for(int index = 0; index < adjacent.size(); ++index) {
 			sb.append(adjacent.get(index).val);
-			if(index != adjacent.size() - 1) sb.append(" ,");
+			if(index != adjacent.size() - 1) sb.append(", ");
 		}
 		sb.append("]");
 		return sb.toString();
