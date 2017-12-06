@@ -47,6 +47,7 @@ public class BFS {
 		}
 
 		int start = 0;
+		PrintAdjacencyList.print(adjacencyList);
 		bfsImplementation.bfs(start, adjacencyList, parent);
 
 

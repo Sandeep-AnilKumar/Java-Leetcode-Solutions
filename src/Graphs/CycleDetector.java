@@ -26,6 +26,7 @@ public class CycleDetector {
 
 		int start = 0;
 
+		PrintAdjacencyList.print(adjacencyList);
 		detect.DFSCycle(start, adjacencyList);
 
 		if(isCycle) {
@@ -34,11 +35,15 @@ public class CycleDetector {
 			System.out.println("The graph doesn't have a cycle");
 		}
 
+		System.out.println("=================================================================");
+
 		for(int i = 0; i < 3; ++i) {
 			adjacencyList[i].setUnvisited();
 		}
 
 		isCycle = false;
+
+		PrintAdjacencyList.print(adjacencyList);
 		detect.BFSCycle(start, adjacencyList);
 
 		if(isCycle) {
@@ -46,6 +51,8 @@ public class CycleDetector {
 		} else {
 			System.out.println("The graph doesn't have a cycle");
 		}
+
+		System.out.println("=================================================================");
 
 		adjacencyList = new Node[4];
 
@@ -64,6 +71,7 @@ public class CycleDetector {
 		adjacencyList[2].addAdjacentNode(adjacencyList[0]);
 		adjacencyList[2].addAdjacentNode(adjacencyList[3]);
 
+		PrintAdjacencyList.print(adjacencyList);
 		detect.DFSCycle(start, adjacencyList);
 
 		if(isCycle) {
@@ -72,11 +80,14 @@ public class CycleDetector {
 			System.out.println("The graph doesn't have a cycle");
 		}
 
+		System.out.println("=================================================================");
+
 		for(int i = 0; i < 4; ++i) {
 			adjacencyList[i].setUnvisited();
 		}
 
 		isCycle = false;
+		PrintAdjacencyList.print(adjacencyList);
 		detect.BFSCycle(start, adjacencyList);
 
 		if(isCycle) {
@@ -84,6 +95,8 @@ public class CycleDetector {
 		} else {
 			System.out.println("The graph doesn't have a cycle");
 		}
+
+		System.out.println("=================================================================");
 
 		isCycle = false;
 		for(int i = 0; i < 4; ++i) {
@@ -100,6 +113,7 @@ public class CycleDetector {
 		//adjacencyList[2].addAdjacentNode(adjacencyList[0]);
 		adjacencyList[2].addAdjacentNode(adjacencyList[3]);
 
+		PrintAdjacencyList.print(adjacencyList);
 		detect.DFSCycle(start, adjacencyList);
 
 		if(isCycle) {
@@ -108,11 +122,14 @@ public class CycleDetector {
 			System.out.println("The graph doesn't have a cycle");
 		}
 
+		System.out.println("=================================================================");
+
 		for(int i = 0; i < 4; ++i) {
 			adjacencyList[i].setUnvisited();
 		}
 
 		isCycle = false;
+		PrintAdjacencyList.print(adjacencyList);
 		detect.BFSCycle(start, adjacencyList);
 
 		if(isCycle) {
@@ -120,7 +137,6 @@ public class CycleDetector {
 		} else {
 			System.out.println("The graph doesn't have a cycle");
 		}
-
 	}
 
 	public void DFSCycle(int start, Node[] adjacencyList) {

@@ -14,9 +14,7 @@ public class MatrixToList {
 		Node[] adjacencyList = new MatrixToList().convertMatrixToList(matrix);
 		System.out.println("The adjacency list is := ");
 
-		for(Node node: adjacencyList) {
-			System.out.println(node);
-		}
+		PrintAdjacencyList.print(adjacencyList);
 	}
 
 	public Node[] convertMatrixToList(int[][] matrix) {

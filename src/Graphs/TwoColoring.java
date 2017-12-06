@@ -31,6 +31,7 @@ public class TwoColoring {
 		int start = 0;
 
 		Color[] colors = new Color[3];
+		PrintAdjacencyList.print(adjacencyList);
 		twoColor.color(start, adjacencyList, colors, 0);
 
 		if(!possible) {
@@ -43,6 +44,8 @@ public class TwoColoring {
 		for(int i = 0; i < 3; ++i) {
 			System.out.println(i + " -> " + colors[i]);
 		}
+		
+		System.out.println("=================================================================");
 
 		adjacencyList = new Node[4];
 
@@ -65,6 +68,7 @@ public class TwoColoring {
 		possible = true;
 
 		colors = new Color[4];
+		PrintAdjacencyList.print(adjacencyList);
 		twoColor.color(start, adjacencyList, colors, 0);
 
 		if(!possible) {

@@ -44,6 +44,7 @@ public class DFS {
 		}
 
 		int start = 0;
+		PrintAdjacencyList.print(adjacencyList);
 		dfsImplementation.dfs(start, adjacencyList, parent);
 		
 		//DFS doesn't give the shortest path.
