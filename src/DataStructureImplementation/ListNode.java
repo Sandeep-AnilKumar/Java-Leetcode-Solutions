@@ -7,7 +7,7 @@ package DataStructureImplementation;
 public class ListNode<T> {
 	private T val;
 	private ListNode<T> next;
-	
+
 	public ListNode(T val) {
 		this.val = val;
 		this.next = null;
