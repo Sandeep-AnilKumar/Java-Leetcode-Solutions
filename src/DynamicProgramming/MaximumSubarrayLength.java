@@ -1,4 +1,4 @@
-package Arrays;
+package DynamicProgramming;
 
 /**
  * @author sandeepa
