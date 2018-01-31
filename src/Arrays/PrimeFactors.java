@@ -26,5 +26,4 @@ public class PrimeFactors {
 		}
 		return primeFactors;
 	}
-
 }
