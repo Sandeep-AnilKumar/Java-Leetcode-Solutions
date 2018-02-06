@@ -23,16 +23,17 @@ public class Deadlock {
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		final Friend alphonse =
-				new Friend("Alphonse");
-		final Friend gaston =
-				new Friend("Gaston");
+		final Friend alphonse = new Friend("Alphonse");
+		final Friend gaston = new Friend("Gaston");
 		Thread f1 = new Thread( () ->  {alphonse.bow(gaston);} );
+		
 		f1.start();
 		//f1.join(); //Without this line there will be deadlock;
+		
 		Thread f2 = new Thread(new Runnable() {
 			public void run() { gaston.bow(alphonse); }
 		});
+		
 		f2.start();
 	}
 }
