@@ -99,16 +99,20 @@ class AutocompleteSystem {
             cur = sb.toString();
             if (dictionary.contains(cur)) {
                 curSet = map.get(cur);
-                for (HotSentence hs : curSet) {
-                    if (hs.getSentence().equals(cur)) {
-                        count = hs.getHotness();
+
+                if (curSet != null) {
+                    for (HotSentence hs : curSet) {
+                        if (hs.getSentence().equals(cur)) {
+                            count = hs.getHotness();
+                        }
                     }
                 }
+
+                remove(cur, count);
             } else {
                 dictionary.add(cur);
             }
 
-            remove(cur, count);
             insert(cur, count + 1);
             sb = new StringBuilder();
             return hotSentences;
