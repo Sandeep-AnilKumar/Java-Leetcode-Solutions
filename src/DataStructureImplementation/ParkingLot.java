@@ -236,7 +236,7 @@ public class ParkingLot {
     }
 
     public static void main(String[] args) {
-        ParkingLot lot = new ParkingLot("A", "Sunnyvale", 3, new int[]{1, 1, 0});
+        ParkingLot lot = new ParkingLot("A", "Sunnyvale", 3, new int[]{1, 1, 1});
         lot.setFare(10, 120, 5, 30);
         int space1 = lot.startBooking(5, 30);
         lot.endBooking(space1, 9, 29);
