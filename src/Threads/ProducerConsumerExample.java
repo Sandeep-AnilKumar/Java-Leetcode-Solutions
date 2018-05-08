@@ -15,39 +15,43 @@ public class ProducerConsumerExample {
 		// for producer to send value,
 		// false if producer should wait for
 		// consumer to retrieve value.
-		private boolean canAccess = true;
+		private boolean empty = true;
 
-		public synchronized int get() {
+		public int get() {
 			// Wait until value is
 			// available.
-			while (canAccess) {
-				try {
-					wait();
-				} catch (InterruptedException e) {}
-			}
-			// Toggle status.
-			canAccess = true;
-			// Notify producer that
-			// status has changed.
-			notifyAll();
+            synchronized (this) {
+                while (empty) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {}
+                }
+                // Toggle status.
+                empty = true;
+                // Notify producer that
+                // status has changed.
+                notifyAll();
+            }
 			return value;
 		}
 
-		public synchronized void set() {
+		public void set() {
 			// Wait until value has
 			// been retrieved.
-			while (!canAccess) {
-				try { 
-					wait();
-				} catch (InterruptedException e) {}
-			}
-			// Toggle status.
-			canAccess = false;
-			// Store message.
-			this.value++;
-			// Notify consumer that status
-			// has changed.
-			notifyAll();
+            synchronized (this) {
+                while (!empty) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {}
+                }
+                // Toggle status.
+                empty = false;
+                // Store message.
+                this.value++;
+                // Notify consumer that status
+                // has changed.
+                notifyAll();
+            }
 		}
 	}
 
