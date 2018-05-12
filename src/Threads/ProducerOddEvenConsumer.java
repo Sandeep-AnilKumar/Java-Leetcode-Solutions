@@ -2,6 +2,7 @@ package Threads;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author sandeepa
@@ -9,9 +10,9 @@ import java.util.concurrent.BlockingQueue;
 
 public class ProducerOddEvenConsumer {
     static BlockingQueue<Integer> bq = new ArrayBlockingQueue<>(10);
-    static final Object lock = new Object();
     static volatile boolean finished = false;
     final static int toProduce = 10; 
+    static boolean odd = true;
 
     static class Producer implements Runnable {
         @Override public void run() {
@@ -28,41 +29,40 @@ public class ProducerOddEvenConsumer {
         }
     }
 
-    static class Consumer2 implements Runnable {
-        @Override public void run() {
-            while(!finished) {
-                synchronized(lock) {
+    static class Consumer1 implements Runnable {
+        @Override
+        public void run() {
+            while (!finished) {
+                while (odd) {
                     try {
-                        lock.notify();
                         int cur = bq.take();
-                        System.out.println("Consumer 2 consumed " + cur);
+                        System.out.println("Consumer 1 consumed " + cur);
                         Thread.sleep(1000);
-                        lock.wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    odd = false;
                 }
             }
             return;
         }
     }
 
-    static class Consumer1 implements Runnable {
+    static class Consumer2 implements Runnable {
         @Override public void run() {
             while(!finished) {
-                synchronized(lock) {
+                while (!odd) {
                     try {
-                        lock.wait();
                         int cur = bq.take();
-                        System.out.println("Consumer 1 consumed " + cur);
+                        System.out.println("Consumer 2 consumed " + cur);
                         Thread.sleep(1000);
-                        lock.notify();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    odd = true;
                 }
             }
-            return;
+            return; 
         }
     }
 
