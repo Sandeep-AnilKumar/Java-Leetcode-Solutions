@@ -3,28 +3,44 @@ package Threads;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class TokenizedServiceImpl {
 	private static BlockingQueue<Integer> queue;
+	private static Thread[] tokenProviderThreads;
+	private static Thread[] serviceProviderThreads;
+    private static AtomicInteger token;
 
-	public TokenizedServiceImpl() {
-		queue = new ArrayBlockingQueue<>(100);
+	public TokenizedServiceImpl(int capacity, int totalTokenStations, int totalServiceStations, int initialToken) {
+		queue = new LinkedBlockingDeque<>(capacity);
+        tokenProviderThreads = new Thread[totalTokenStations];
+        serviceProviderThreads = new Thread[totalServiceStations];
+        token = new AtomicInteger(initialToken);
 	}
 
 	public static void main(String[] args) {
 		try {
-			TokenizedServiceImpl tokenService = new TokenizedServiceImpl();
+		    Scanner scanner = new Scanner(System.in);
+		    System.out.print("Enter the total slack for tokens waiting : ");
+		    int capacity = scanner.nextInt();
+            System.out.print("Enter the total number of token stations : ");
+            int totalTokenStations = scanner.nextInt();
+            System.out.print("Enter the total number of service providers : ");
+            int totalServiceStations = scanner.nextInt();
+            System.out.print("Enter the starting token value : ");
+            int initialToken = scanner.nextInt();
+			TokenizedServiceImpl tokenService = new TokenizedServiceImpl(capacity, totalTokenStations, totalServiceStations, initialToken);
 			List<Thread> threads = new ArrayList<>();
-
-			Thread[] tokenProviderThreads = new Thread[1];
-			Thread[] serviceProviderThreads = new Thread[4];
+			
 			char name = '1';
 
 			for (Thread tokenThread : tokenProviderThreads) {
-				tokenThread = new Thread(new TokenProvider(name, queue));
+				tokenThread = new Thread(new TokenProvider(name, queue, token));
 				threads.add(tokenThread);
 				name = (char)(name + 1);
 			}
@@ -54,12 +70,13 @@ public class TokenizedServiceImpl {
 class TokenProvider implements Runnable {
 	private BlockingQueue<Integer> queue;
 	private final char name;
-	private int tokenNumber = 0;
 	private Random random;
+	private AtomicInteger token;
 
-	public TokenProvider(char name, BlockingQueue<Integer> queue) {
+	public TokenProvider(char name, BlockingQueue<Integer> queue, AtomicInteger token) {
 		this.queue = queue;
 		this.name = name;
+        this.token = token;
 		random = new Random();
 		System.out.println("Token provider " + name + " has started");
 	}
@@ -68,8 +85,9 @@ class TokenProvider implements Runnable {
 	public void run() {
 		try {
 		    while(true) {
-		        System.out.println("Token provider " + name + " produced " + ++tokenNumber);
-		        queue.put(tokenNumber);
+		        int curToken = token.addAndGet(1);
+		        System.out.println("Token provider " + name + " produced " + curToken);
+		        queue.put(curToken);
 		        Thread.sleep(random.nextInt(1000));
             }
 		} catch (InterruptedException e) {
