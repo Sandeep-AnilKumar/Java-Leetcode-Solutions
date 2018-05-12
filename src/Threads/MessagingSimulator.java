@@ -34,11 +34,13 @@ public class MessagingSimulator {
     static class ChannelIn implements Runnable {
         User user;
         String[] sampleMessages;
+        BlockingQueue<Message> channel;
         Random random;
 
-        public ChannelIn(User user, String[] sampleMessages) {
+        public ChannelIn(User user, String[] sampleMessages, BlockingQueue<Message> channel) {
             this.user = user;
             this.sampleMessages = sampleMessages;
+            this.channel = channel;
             random = new Random();
         }
 
@@ -48,8 +50,8 @@ public class MessagingSimulator {
                 try {
                     System.out.println(user.name + " is typing. . .");
                     Thread.sleep(random.nextInt(5000));
-                    int index = random.nextInt(1000000) % sampleMessages.length ;
-                    queue.put(new Message(user, sampleMessages[index]));
+                    int index = random.nextInt(sampleMessages.length) ;
+                    channel.put(new Message(user, sampleMessages[index]));
                     Thread.sleep(random.nextInt(15000));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -57,21 +59,35 @@ public class MessagingSimulator {
             }
         }
     }
-    
+
     static class ChannelOut implements Runnable {
         User user;
-        
-        public ChannelOut(User user) {
+        String[] sampleMessages;
+        BlockingQueue<Message> channel;
+        Random random;
+
+        public ChannelOut(User user, String[] sampleMessages, BlockingQueue<Message> channel) {
             this.user = user;
+            this.sampleMessages = sampleMessages;
+            this.channel = channel;
+            random = new Random();
         }
-        
+
         @Override
         public void run() {
             System.out.println("Current user is : " + user.name);
             while(true) {
                 try {
-                    Message message = queue.take();
-                    System.out.println(message.sender.name + " sent " + message.text);
+                    Message message = channel.take();
+                    if (!message.sender.name.equals(user.name)) {
+                        System.out.println("\t\t\t" + message.sender.name + ": " + message.text + "\n");
+                    }
+                    
+                    if (random.nextBoolean()) {
+                        int index = random.nextInt(sampleMessages.length);
+                        System.out.println("\t\t\t\t\t\t\t\t" + sampleMessages[index] + "\n");
+                        channel.put(new Message(user, sampleMessages[index]));
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -93,20 +109,22 @@ public class MessagingSimulator {
         index = random.nextInt(5);
         User currentUser = users[index];
         List<Thread> userThreads = new LinkedList<>();
-        String[] sampleMessages = {"Hi, how you doing?", "How's work going?", "Let's go out sometime", "What did you do over the weekend?", "Haha Lol!", "Watched any new movies?"};
+        String[] sampleMessages = {"Hi, how you doing?", "How's work going?", "Let's go out sometime",
+                "What did you do over the weekend?", "Haha Lol!", "Watched any new movies?", "Did you hear about Anna?",
+                "What have you been doing lately?", "Wow! you got a new car?", "I heard its snowing in Tahoe", ":D", ":@", ":)"};
 
         for (User user : users) {
             if (!user.name.equals(currentUser.name)) {
-                userThreads.add(new Thread(new ChannelIn(user, sampleMessages)));
+                userThreads.add(new Thread(new ChannelIn(user, sampleMessages, queue)));
             } else {
-                userThreads.add(new Thread(new ChannelOut(currentUser)));
+                userThreads.add(new Thread(new ChannelOut(currentUser, sampleMessages, queue)));
             }
         }
-        
+
         for (Thread thread : userThreads) {
             thread.start();
         }
-        
+
         try {
             for (Thread thread : userThreads) {
                 thread.join();
