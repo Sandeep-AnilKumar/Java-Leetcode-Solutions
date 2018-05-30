@@ -22,18 +22,14 @@ public class MostCommonWord {
         for (String word : paragraph.split("\\s+")) {
             word = word.toLowerCase();
             word = removePunctuations(word, punctuations);
-            if (!bannedSet.contains(word)) {
-                map.put(word, map.getOrDefault(word, 0) + 1);
-            }
+            if (!bannedSet.contains(word)) map.put(word, map.getOrDefault(word, 0) + 1);
         }
     }
 
     private String removePunctuations(String word, Set<Character> punctuations) {
         StringBuilder sb = new StringBuilder();
         for (char c : word.toCharArray()) {
-            if (!punctuations.contains(c)) {
-                sb.append(c);
-            }
+            if (!punctuations.contains(c)) sb.append(c);
         }
         return sb.toString();
     }
