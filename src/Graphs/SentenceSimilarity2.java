@@ -9,57 +9,37 @@ public class SentenceSimilarity2 {
 
     public boolean areSentencesSimilarTwo(String[] words1, String[] words2, String[][] pairs) {
         if (words1.length != words2.length) return false;
+        
         Map<String, Integer> wordToId = new HashMap<>();
-        DSU dsu = new DSU();
-        Map<Integer, Set<String>> components = new HashMap<>();
+        DSU dsu = new DSU(2 * pairs.length);
         int id = 0;
-        int index;
-        boolean found;
+        
         for (String[] pair : pairs) {
-            if (!wordToId.containsKey(pair[0])) {
-                wordToId.put(pair[0], id++);
-            }
-
-            if (!wordToId.containsKey(pair[1])) {
-                wordToId.put(pair[1], id++);
+            for (String p : pair) {
+                if (!wordToId.containsKey(p)) {
+                    wordToId.put(p, id++);
+                }
             }
 
             dsu.union(wordToId.get(pair[0]), wordToId.get(pair[1]));
         }
-
-        for (String word : words1) {
-            if (wordToId.containsKey(word)) {
-                index = dsu.find(wordToId.get(word));
-                components.computeIfAbsent(index, x -> new HashSet<>());
-                components.get(index).add(word);
-            }
-        }
-
-        for (String word : words2) {
-            if (wordToId.containsKey(word)) {
-                index = dsu.find(wordToId.get(word));
-                components.computeIfAbsent(index, x -> new HashSet<>());
-                components.get(index).add(word);
-            }
-        }
-
+        
         for (int i = 0; i < words1.length; ++i) {
-            found = false;
-            for (Set<String> similar : components.values()) {
-                if (similar.contains(words1[i]) && similar.contains(words2[i])) found = true;
-            }
-
-            if (!found && !words1[i].equals(words2[i])) return false;
+            if (words1[i].equals(words2[i])) continue;
+            
+            if (!wordToId.containsKey(words1[i]) || !wordToId.containsKey(words2[i]) || 
+                    dsu.find(wordToId.get(words1[i])) != dsu.find(wordToId.get(words2[i]))) return false;
         }
-
+        
         return true;
     }
 
     class DSU {
-        int parent[] = new int[1001];
+        int parent[];
 
-        DSU() {
-            for (int i = 0; i < 1001; ++i) {
+        DSU(int size) {
+            parent = new int[size];
+            for (int i = 0; i < size; ++i) {
                 parent[i] = i;
             }
         }
