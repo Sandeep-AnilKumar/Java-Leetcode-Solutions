@@ -38,3 +38,10 @@ target
 .Trashes
 ehthumbs.db
 Thumbs.db
+Programs.iml
+.name
+misc.xml
+modules.xml
+vcs.xml
+codeStyleConfig.xml
+.idea/*
