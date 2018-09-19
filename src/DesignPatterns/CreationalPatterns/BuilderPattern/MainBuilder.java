@@ -1,6 +1,6 @@
-package DesignPatterns.CreationalPatterns;
+package DesignPatterns.CreationalPatterns.BuilderPattern;
 
-public class BuilderPattern {
+public class MainBuilder {
 
   public static void main(String[] args) {
     Employee employee1 = Employee.getBuilder()

@@ -1,4 +1,4 @@
-package DesignPatterns.CreationalPatterns;
+package DesignPatterns.CreationalPatterns.BuilderPattern;
 
 import java.util.Objects;
 
