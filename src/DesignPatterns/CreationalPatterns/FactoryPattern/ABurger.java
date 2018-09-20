@@ -14,7 +14,7 @@ public abstract class ABurger {
   public void setPrice(Double price) { this.price = price; }
 
   public void onCreate() {
-    System.out.println("Created " + getName() + " with a price of " + getPrice());
+    System.out.println("Created : " + getName() + " with a price of : " + getPrice());
     printContents();
   }
 
