@@ -3,18 +3,16 @@ package Threads.Chatter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
 import java.util.concurrent.Future;
 import static Threads.Chatter.Server.users;
 
 public class User implements Runnable {
   private String name;
-  private Socket socket;
   private DataInputStream in;
   private DataOutputStream out;
   private Future<?> userHandle;
   
-  public User(String name, Socket socket, DataInputStream in, DataOutputStream out) {
+  public User(String name, DataInputStream in, DataOutputStream out) {
     setName(name);
     setIn(in);
     setOut(out);
@@ -22,9 +20,6 @@ public class User implements Runnable {
   
   public void setName(String name) { this.name = name;}
   public String getName() { return name; }
-
-  public void setSocket(Socket socket) { this.socket = socket; }
-  public Socket getSocket() { return socket; }
 
   public DataInputStream getIn() { return in; }
   public void setIn(DataInputStream in) { this.in = in; }
@@ -81,14 +76,6 @@ public class User implements Runnable {
         break;
       }
     }
-    try {
-      socket.close();
-      in.close();
-      out.close();
-      users.remove(name);
-    } catch (IOException e) {
-      System.out.println("Something went wrong while user : " + name + " exited");
-      e.printStackTrace();
-    }
+    users.remove(name);
   }
 }

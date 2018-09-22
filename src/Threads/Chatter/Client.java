@@ -65,7 +65,6 @@ public class Client {
 
     Client client = new Client(in, out);
     client.createClientAccount();
-    System.out.println("Starting threads");
 
     //read messages
     Thread reader = new Thread(() -> {
@@ -74,30 +73,37 @@ public class Client {
           String message = in.readUTF();
           System.out.println(message);
         } catch (IOException io) {
-          System.out.println("*************** Missed a message. Sorry! ***************");
+          System.out.println("*************** Something is wrong, please restart the client ***************");
+          try {
+            in.close();
+            out.close();
+            socket.close();
+            break;
+          } catch (IOException inIO) { inIO.printStackTrace(); }
         }
       }
     });
 
     reader.start();
-    
+
     //write messages
     Thread writer = new Thread(() -> {
-      try {
-        while (true) {
+      while (true) {
+        try {
           String message = "";
           while ((message = bufferedReader.readLine()) != null) {
             if (message.length() > 0) {
               out.writeUTF(message);
             }
           }
+        } catch (IOException io) {
+          io.printStackTrace();
+          System.out.println("*************** Couldn't construct the message. Please restart the client ***************");
+          break;
         }
-      } catch (IOException io) {
-        io.printStackTrace();
-        System.out.println("*************** Couldn't construct the message. Please restart the client ***************");
       }
     });
-    
+
     writer.start();
 
     try {

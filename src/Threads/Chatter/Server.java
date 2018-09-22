@@ -45,7 +45,7 @@ public class Server {
                 out.writeUTF("Please enter a different username, this name is already taken");
                 continue;
               }
-              user = new User(userName, socket, in, out);
+              user = new User(userName, in, out);
               users.put(userName, user);
               
               System.out.println("User " + userName + " added");
