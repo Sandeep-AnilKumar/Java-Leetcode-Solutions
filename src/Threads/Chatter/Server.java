@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
@@ -17,7 +18,7 @@ public class Server {
   private Server(int port) {
     try {
       serverSocket = new ServerSocket(port);
-      users = new HashMap<>();
+      users = new ConcurrentHashMap<>();
     } catch (IOException e) {
       e.printStackTrace();
     }
