@@ -1,6 +1,6 @@
 package DesignPatterns.CreationalPatterns.ObjectPool;
 
-public class JDBCConnectionPool extends ConnectionPool<Connection> {
+public class JDBCConnectionPool extends AConnectionPool<Connection> {
 
   private String ds;
   private String userName;

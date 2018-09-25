@@ -8,7 +8,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public abstract class ConnectionPool<T> {
+public abstract class AConnectionPool<T> {
 
   private Map<T, Long> available, leased;
   private int maxConnections;
@@ -16,7 +16,7 @@ public abstract class ConnectionPool<T> {
   private Lock lock = new ReentrantLock();
   private Condition instanceRelease = lock.newCondition();
 
-  protected ConnectionPool(int maxConnections, long maxKeepAlive) {
+  protected AConnectionPool(int maxConnections, long maxKeepAlive) {
     this.maxConnections = maxConnections;
     this.maxKeepAlive = maxKeepAlive;
     available = new ConcurrentHashMap<>(maxConnections);
