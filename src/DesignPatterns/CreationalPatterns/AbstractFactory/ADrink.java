@@ -1,4 +1,4 @@
-package DesignPatterns.CreationalPatterns.AbstractFactoryPattern;
+package DesignPatterns.CreationalPatterns.AbstractFactory;
 
 public abstract  class ADrink {
   private String name;

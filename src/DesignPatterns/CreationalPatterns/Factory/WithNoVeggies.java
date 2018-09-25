@@ -1,4 +1,4 @@
-package DesignPatterns.CreationalPatterns.FactoryPattern;
+package DesignPatterns.CreationalPatterns.Factory;
 
 public class WithNoVeggies extends AVeggies {
   public WithNoVeggies() {

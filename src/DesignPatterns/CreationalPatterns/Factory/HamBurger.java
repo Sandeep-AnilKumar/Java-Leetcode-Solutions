@@ -1,4 +1,4 @@
-package DesignPatterns.CreationalPatterns.FactoryPattern;
+package DesignPatterns.CreationalPatterns.Factory;
 
 public class HamBurger extends ABurger {
   public HamBurger(String name, Double price) {

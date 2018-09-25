@@ -1,6 +1,6 @@
-package DesignPatterns.CreationalPatterns.AbstractFactoryPattern;
+package DesignPatterns.CreationalPatterns.AbstractFactory;
 
-import DesignPatterns.CreationalPatterns.FactoryPattern.BurgerFactory;
+import DesignPatterns.CreationalPatterns.Factory.BurgerFactory;
 
 public class MealProducer {
   public static MealFactory getFactory(String mealItem) throws Exception {

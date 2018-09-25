@@ -1,6 +1,6 @@
-package DesignPatterns.CreationalPatterns.AbstractFactoryPattern;
+package DesignPatterns.CreationalPatterns.AbstractFactory;
 
-import DesignPatterns.CreationalPatterns.FactoryPattern.ABurger;
+import DesignPatterns.CreationalPatterns.Factory.ABurger;
 
 public class DrinkFactory extends MealFactory {
   private static DrinkFactory instance;

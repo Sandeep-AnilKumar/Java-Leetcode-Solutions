@@ -1,6 +1,6 @@
-package DesignPatterns.CreationalPatterns.AbstractFactoryPattern;
+package DesignPatterns.CreationalPatterns.AbstractFactory;
 
-import DesignPatterns.CreationalPatterns.FactoryPattern.ABurger;
+import DesignPatterns.CreationalPatterns.Factory.ABurger;
 
 public abstract class MealFactory {
   public abstract ABurger createBurger(String burgerType, Double price) throws Exception;

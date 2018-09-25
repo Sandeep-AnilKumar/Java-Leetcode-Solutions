@@ -1,4 +1,4 @@
-package DesignPatterns.CreationalPatterns.AbstractFactoryPattern;
+package DesignPatterns.CreationalPatterns.AbstractFactory;
 
 import java.util.HashMap;
 import java.util.Map;

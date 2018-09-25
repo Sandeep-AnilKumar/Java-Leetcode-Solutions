@@ -1,4 +1,4 @@
-package DesignPatterns.CreationalPatterns.FactoryPattern;
+package DesignPatterns.CreationalPatterns.Factory;
 
 public class CheeseBurger extends ABurger {
   public CheeseBurger(String name, Double price) {

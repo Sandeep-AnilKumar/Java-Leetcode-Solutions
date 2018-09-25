@@ -1,7 +1,7 @@
-package DesignPatterns.CreationalPatterns.FactoryPattern;
+package DesignPatterns.CreationalPatterns.Factory;
 
-import DesignPatterns.CreationalPatterns.AbstractFactoryPattern.ADrink;
-import DesignPatterns.CreationalPatterns.AbstractFactoryPattern.MealFactory;
+import DesignPatterns.CreationalPatterns.AbstractFactory.ADrink;
+import DesignPatterns.CreationalPatterns.AbstractFactory.MealFactory;
 
 public class BurgerFactory extends MealFactory {
   private static BurgerFactory instance;
