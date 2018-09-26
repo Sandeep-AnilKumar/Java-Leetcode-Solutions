@@ -2,20 +2,13 @@ package DesignPatterns.CreationalPatterns.Singleton;
 
 public class Singleton {
   
-  private static Singleton singleton;
-  
   private Singleton() { }
   
+  private static class SingletonHolder {
+    private static final Singleton singleton = new Singleton();
+  }
+  
   public static Singleton getInstance() {
-    if (singleton == null) {
-      System.out.println("Acquiring the instance for the first time");
-      synchronized (Singleton.class) {
-        if (singleton == null) {
-          singleton = new Singleton();
-          System.out.println("Instance created");
-        }
-      }
-    }
-    return singleton;
+    return SingletonHolder.singleton;
   }
 }
