@@ -47,9 +47,6 @@ public class RescueBoats {
 
         return boats;
     }
-    
-    //[7,3,2]
-    //8
 
     public static void main(String[] args) {
         RescueBoats boats = new RescueBoats();
@@ -67,6 +64,10 @@ public class RescueBoats {
 
         people = new int[]{3, 2, 3, 2, 2};
         limit = 6;
+        System.out.println("The number of rescue boats required is := " + boats.numRescueBoats(people, limit));
+
+        people = new int[]{7, 3, 2};
+        limit = 8;
         System.out.println("The number of rescue boats required is := " + boats.numRescueBoats(people, limit));
     }
 }
