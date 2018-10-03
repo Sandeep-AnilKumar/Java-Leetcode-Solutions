@@ -10,45 +10,43 @@ import java.util.List;
 
 public class ThreeSumNew {
 
-	public static void main(String[] args) {
-		int[] nums = {-1, 0, -1, 2, 1, 4};
-		System.out.println("The different triplets are := " + new ThreeSumNew().threeSum(nums));
-	}
+    public static void main(String[] args) {
+        int[] nums = {-1, 0, -1, 2, 1, -4};
+        System.out.println("The different triplets are := " + new ThreeSumNew().threeSum(nums));
+    }
 
-	public List<List<Integer>> threeSum(int[] nums) {
-		List<List<Integer>> triplets = new ArrayList<>();
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> triplets = new ArrayList<>();
+        if (nums == null || nums.length == 0) return triplets;
+        Arrays.sort(nums);
+        int left = 0, right = 0, target = 0, sum = 0;
 
-		if (nums == null || nums.length == 0) return triplets;
+        for (int i = 0; i < nums.length; ++i) {
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            target = -nums[i];
+            left = i + 1;
+            right = nums.length - 1;
+            while (left < right) {
+                sum = nums[left] + nums[right];
+                if (sum == target) {
+                    triplets.add(new ArrayList<>(Arrays.asList(nums[i], nums[left], nums[right])));
+                    left = getIndex(nums, left, 1);
+                    right = getIndex(nums, right, -1);
+                } else if (sum < target) {
+                    left = getIndex(nums, left, 1);
+                } else {
+                    right = getIndex(nums, right, -1);
+                }
+            }
+        }
+        return triplets;
+    }
 
-		int length = nums.length;
-		Arrays.sort(nums);
-
-		int j = 0;
-		int k = 0;
-		int cur = 0;
-
-		for (int i = 0; i < length - 2; ++i) {
-			j = i + 1;
-			k = length - 1;
-
-			while (j < k) {
-				cur = nums[j] + nums[k];
-				if (cur == -nums[i]) {
-					triplets.add(new ArrayList<Integer>(Arrays.asList(nums[i], nums[j], nums[k])));
-					j++; k--;
-					while (j < length && nums[j] == nums[j - 1]) j++;
-					while (k >= 0 && nums[k] == nums[k + 1]) k--;
-				} else if (nums[j] + nums[k] > -nums[i]) {
-					--k;
-				} else {
-					++j;
-				}
-			}
-
-			++i;
-			while (i < length && nums[i] == nums[i - 1]) ++i;
-			--i;
-		}
-		return triplets;
-	}
+    private int getIndex(int[] nums, int index, int additive) {
+        do {
+            index += additive;
+        } while (index >= 0 && index < nums.length && (additive == 1 ? nums[index] == nums[index - 1] :
+                nums[index] == nums[index + 1]));
+        return index;
+    }
 }
