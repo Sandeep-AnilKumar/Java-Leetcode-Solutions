@@ -35,6 +35,5 @@ public class InsertInterval {
         intervals.add(new Interval(10, 12));
         Interval newInterval = new Interval(2, 9);
         System.out.println("The updated interval is := " + new InsertInterval().insert(intervals, newInterval));
-        
     }
 }
