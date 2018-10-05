@@ -22,7 +22,7 @@ public class SumOfNonOverlappingSubArrays {
 		int n = nums.length, maxsum = 0;
 		int[] sum = new int[n+1], posLeft = new int[n], posRight = new int[n], ans = new int[3];
 		for (int i = 0; i < n; i++) sum[i+1] = sum[i]+nums[i];
-		// DP for starting index of the left max sum interval
+		// DP for starting index of the start max sum interval
 		for (int i = k, tot = sum[k]-sum[0]; i < n; i++) {
 			if (sum[i+1]-sum[i+1-k] > tot) {
 				posLeft[i] = i+1-k;
@@ -31,7 +31,7 @@ public class SumOfNonOverlappingSubArrays {
 			else
 				posLeft[i] = posLeft[i-1];
 		}
-		// DP for starting index of the right max sum interval
+		// DP for starting index of the end max sum interval
 		posRight[n-k] = n-k;
 		for (int i = n-k-1, tot = sum[n]-sum[n-k]; i >= 0; i--) {
 			if (sum[i+k]-sum[i] > tot) {

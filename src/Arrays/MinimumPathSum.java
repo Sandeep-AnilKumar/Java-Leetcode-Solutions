@@ -7,7 +7,7 @@ public class MinimumPathSum {
                 {2,1,1,2},
                 {3,1,4,5},
                 {4,4,5,6}};
-        System.out.println("Minimum Path from top left to bottom right is : " + minPathSum(grid));
+        System.out.println("Minimum Path from top start to bottom end is : " + minPathSum(grid));
     }
 
 

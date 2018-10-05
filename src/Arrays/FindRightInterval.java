@@ -18,7 +18,7 @@ public class FindRightInterval {
 
 		FindRightInterval interval = new FindRightInterval();
 
-		System.out.println("The right intervals are := ");
+		System.out.println("The end intervals are := ");
 		int[] right = interval.findRightInterval(intervals);
 		for(int r: right) {
 			System.out.print(r + ", ");

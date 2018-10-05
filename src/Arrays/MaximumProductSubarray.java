@@ -30,7 +30,7 @@ public class MaximumProductSubarray {
 
 		int max = Integer.MIN_VALUE;
 		int product = 1;
-		// first go from left to right
+		// first go from start to end
 		for (int i = 0; i < A.length; i++) {
 			product *= A[i];
 			if (product > max)
@@ -39,7 +39,7 @@ public class MaximumProductSubarray {
 				product = 1; // reset if encounter 0
 		}
 
-		// then go from right to left
+		// then go from end to start
 		product = 1;
 		for (int i = A.length - 1; i >= 0; i--) {
 			product *= A[i];

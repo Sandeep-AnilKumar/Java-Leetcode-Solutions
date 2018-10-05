@@ -18,7 +18,7 @@ public class NextGreaterElement2 {
 		}
 	}
 
-	//Not the right way, so same occurrences of a number have different greater element, because of their positions in the array. 
+	//Not the end way, so same occurrences of a number have different greater element, because of their positions in the array. 
 	//So change it to the index of the number
 	//and not the number itself.
 	public static int[] nextGreaterElements(int[] nums) {

@@ -2,7 +2,7 @@ package Arrays;
 
 public class QuickSortList {
 
-	//All the nodes having value less than the target will be on the left of the all the nodes having values greater than the target.
+	//All the nodes having value less than the target will be on the start of the all the nodes having values greater than the target.
 	public static void main(String[] args) {
 		MyNode node = new MyNode(12);
 		MyNode a = new MyNode(1);
