@@ -2,13 +2,14 @@ package Arrays;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Permutations {
 
 	public static void main(String[] args) {
-		int[] nums = new int[]{1,2,3,4};
+		int[] nums = new int[]{1,2,3};
 		List<List<Integer>> result = orderedPermute(nums);
 		for(List<Integer> r : result) {
 			System.out.print("[");
@@ -43,26 +44,27 @@ public class Permutations {
 	}
 
 	public static List<List<Integer>> iterativePermute(int[] nums) {
-		List<List<Integer>> result = new ArrayList<List<Integer>>();
+		LinkedList<List<Integer>> result = new LinkedList<>();
 		if(nums == null || nums.length == 0) {
 			return result;
 		}
 
-		List<Integer> permutation = new ArrayList<Integer>();
-		permutation.add(nums[0]);
-		result.add(permutation);
+		List<Integer> permutation;
+		result.add(new ArrayList<>());
 		int length = nums.length;
 		int curSize = 0;
 
-		for(int i = 1; i < length; ++i) {
+		for(int i = 0; i < length; ++i) {
 			curSize = result.size();
 			for(int j = 0; j < curSize; ++j) {
-				for(int k = 0; k < result.get(j).size(); ++k) {
-					permutation = new ArrayList<Integer>(result.get(j));
-					permutation.add(k, nums[i]);
-					result.add(permutation);
-				}
-				result.get(j).add(nums[i]);
+                permutation = result.poll();
+                if (permutation != null) {
+                    for (int k = permutation.size(); k >= 0; --k) {
+                        List<Integer> temp = new ArrayList<>(permutation);
+                        temp.add(k, nums[i]);
+                        result.offer(temp);
+                    }
+                }
 			}
 		}
 		return result;
