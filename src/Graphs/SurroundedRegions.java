@@ -2,28 +2,50 @@ package Graphs;
 
 public class SurroundedRegions {
     public void solve(char[][] board) {
-        for (int i = 1; i < board.length - 1; ++i) {
-            for (int j = 1; j < board[i].length - 1; ++j) {
-                if (board[i][j] == 'O') {
-                    capture(board, i, j);
-                }
+        if (board.length == 0 || board[0].length == 0)
+            return;
+        if (board.length < 2 || board[0].length < 2)
+            return;
+        int m = board.length, n = board[0].length;
+        //Any 'O' connected to a boundary can't be turned to 'X', so ...
+        //Start from first and last column, turn 'O' to '*'.
+        for (int i = 0; i < m; i++) {
+            if (board[i][0] == 'O')
+                boundaryDFS(board, i, 0);
+            if (board[i][n-1] == 'O')
+                boundaryDFS(board, i, n-1);
+        }
+        //Start from first and last row, turn '0' to '*'
+        for (int j = 0; j < n; j++) {
+            if (board[0][j] == 'O')
+                boundaryDFS(board, 0, j);
+            if (board[m-1][j] == 'O')
+                boundaryDFS(board, m-1, j);
+        }
+        //post-prcessing, turn 'O' to 'X', '*' back to 'O', keep 'X' intact.
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == 'O')
+                    board[i][j] = 'X';
+                else if (board[i][j] == '*')
+                    board[i][j] = 'O';
             }
         }
     }
-
-    private void capture(char[][] board, int i, int j) {
-        if (i < 0 || j < 0 || i >= board.length - 1 || j >= board[i].length - 1 || board[i][j] != 'O') return;
-        
-        board[i][j] = '.';
-        capture(board, i, j - 1);
-        capture(board, i - 1, j);
-        capture(board, i, j + 1);
-        capture(board, i + 1, j);
-
-        if (i - 1 >= 0 && j - 1 >= 0 && i + 1 <= board.length - 1 && j + 1 <= board[i].length - 1 && board[i][j + 1] == 'X' 
-                && board[i + 1][j] == 'X' && board[i - 1][j] == 'X' && board[i][j - 1] == 'X') board[i][j] = 'X';
-        
-        if (board[i][j] == '.') board[i][j] = 'O';
+    //Use DFS algo to turn internal however boundary-connected 'O' to '*';
+    private void boundaryDFS(char[][] board, int i, int j) {
+        if (i < 0 || i > board.length - 1 || j <0 || j > board[0].length - 1)
+            return;
+        if (board[i][j] == 'O')
+            board[i][j] = '*';
+        if (i > 1 && board[i-1][j] == 'O')
+            boundaryDFS(board, i-1, j);
+        if (i < board.length - 2 && board[i+1][j] == 'O')
+            boundaryDFS(board, i+1, j);
+        if (j > 1 && board[i][j-1] == 'O')
+            boundaryDFS(board, i, j-1);
+        if (j < board[i].length - 2 && board[i][j+1] == 'O' )
+            boundaryDFS(board, i, j+1);
     }
 
     private void printBoard(char[][] board) {
@@ -70,19 +92,19 @@ public class SurroundedRegions {
         System.out.println("The solved board is := ");
         surroundedRegions.solve(board);
         surroundedRegions.printBoard(board);
-        
+
         board = new char[][]{{'O','X','X','O','X'},
                 {'X','O','O','X','O'},
                 {'X','O','X','O','X'},
                 {'O','X','O','O','O'},
                 {'X','X','O','X','O'}};
-        
+
         System.out.println("The input board is := ");
         surroundedRegions.printBoard(board);
         System.out.println("The solved board is := ");
         surroundedRegions.solve(board);
         surroundedRegions.printBoard(board);
-        
+
         board = new char[][]{
                 {'O','O','O','O','X','X'},
                 {'O','O','O','O','O','O'},
