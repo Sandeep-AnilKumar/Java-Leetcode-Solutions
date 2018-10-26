@@ -4,75 +4,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeSet;
+import java.util.PriorityQueue;
 
 public class ReconstructItinerary {
-    List<String> finalList;
-    int size;
-    boolean found;
-    Map<String, Integer> visited;
-
-    public ReconstructItinerary() {
-        finalList = new ArrayList<>();
-        size = 0;
-        found = false;
-        visited = new HashMap<>();
-    }
-
     public List<String> findItinerary(String[][] tickets) {
-        if (tickets == null || tickets.length == 0) return finalList;
-        Map<String, Node> map = new HashMap<>();
-        List<String> temp = new ArrayList<>();
-        size = tickets.length + 1;
-
+        List<String> iti = new ArrayList<>();
+        if (tickets == null || tickets.length == 0) return iti;
+        Map<String, PriorityQueue<String>> map = new HashMap<>();
         for (String[] t : tickets) {
-            if (!map.containsKey(t[0])) {
-                map.put(t[0], new Node(t[0]));
-            }
-
-            if (!map.containsKey(t[1])) {
-                map.put(t[1], new Node(t[1]));
-            }
-            map.get(t[0]).set.add(map.get(t[1]));
-            visited.put(t[0] + "," + t[1], visited.getOrDefault(t[0] + "," + t[1], 0) + 1);
+            map.putIfAbsent(t[0], new PriorityQueue<>());
+            map.get(t[0]).add(t[1]);
         }
-        temp.add("JFK");
-        dfs(map, "JFK", temp);
-        return finalList;
+
+        dfs("JFK", map, iti);
+        return iti;
     }
 
-    private void dfs(Map<String, Node> map, String cur, List<String> list) {
-        if (found) return;
-
-        if (list.size() == size) {
-            found = true;
-            finalList = new ArrayList<>(list);
+    private void dfs(String cur, Map<String, PriorityQueue<String>> map, List<String> iti) {
+        PriorityQueue<String> neigh = map.get(cur);
+        while(neigh != null && !neigh.isEmpty()) {
+            dfs(neigh.poll(), map, iti);
         }
-
-        Node curNode = map.get(cur);
-        for (Node next : curNode.set) {
-            if (found || visited.get(curNode.name + "," + next.name) == 0) continue;
-            visited.put(curNode.name + "," + next.name, visited.get(curNode.name + "," + next.name) - 1);
-            list.add(next.name);
-            dfs(map, next.name, list);
-            visited.put(curNode.name + "," + next.name, visited.get(curNode.name + "," + next.name) + 1);
-            list.remove(list.size() - 1);
-        }
-    }
-
-    class Node implements Comparable<Node> {
-        String name;
-        TreeSet<Node> set;
-
-        public Node(String name) {
-            this.name = name;
-            set = new TreeSet<>();
-        }
-
-        @Override
-        public int compareTo(Node o) {
-            return this.name.compareTo(o.name);
-        }
+        iti.add(0, cur);
     }
 
     public static void main(String[] args) {
