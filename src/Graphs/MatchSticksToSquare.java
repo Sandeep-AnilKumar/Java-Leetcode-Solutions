@@ -1,5 +1,6 @@
 package Graphs;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import javafx.util.Pair;
 
@@ -106,7 +107,7 @@ public class MatchSticksToSquare {
         int L = this.nums.length;
 
         // The memo key for this recursion
-        Pair<Integer, Integer> memoKey = new Pair(mask, sidesDone);
+        Pair<Integer, Integer> memoKey = new Pair<>(mask, sidesDone);
 
         // Find out the sum of matchsticks used till now.
         for(int i = L - 1; i >= 0; i--) {
@@ -179,16 +180,19 @@ public class MatchSticksToSquare {
     public static void main(String[] args) {
         MatchSticksToSquare matchSticksToSquare = new MatchSticksToSquare();
 
-        int[] nums = {1,1,2,2,2};
-        System.out.println("Can we create a square? := " + matchSticksToSquare.makesquare(nums));
-
-        nums = new int[]{1,1,1,1,1,1,1,1};
-        System.out.println("Can we create a square? := " + matchSticksToSquare.makesquare(nums));
-
-        nums = new int[]{3,3,3,3,4};
-        System.out.println("Can we create a square? := " + matchSticksToSquare.makesquare(nums));
-
-        nums = new int[]{5,5,5,5,4,4,4,4,3,3,3,3};
-        System.out.println("Can we create a square? := " + matchSticksToSquare.makesquare(nums));
+//        int[] nums = {1,1,2,2,2};
+//        System.out.println("Can we create a square? := " + matchSticksToSquare.makesquare(nums));
+//
+//        nums = new int[]{1,1,1,1,1,1,1,1};
+//        System.out.println("Can we create a square? := " + matchSticksToSquare.makesquare(nums));
+//
+//        nums = new int[]{3,3,3,3,4};
+//        System.out.println("Can we create a square? := " + matchSticksToSquare.makesquare(nums));
+//
+//        nums = new int[]{5,5,5,5,4,4,4,4,3,3,3,3};
+//        System.out.println("Can we create a square? := " + matchSticksToSquare.makesquare(nums));
+        
+        Pair<Integer, Integer> pair = new Pair<>(Arrays.asList(5, 2).hashCode(), Arrays.asList(2, 5).hashCode());
+        System.out.println(pair);
     }
 }
