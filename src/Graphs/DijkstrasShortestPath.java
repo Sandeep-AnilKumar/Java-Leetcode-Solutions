@@ -1,5 +1,6 @@
 package Graphs;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -21,38 +22,115 @@ public class DijkstrasShortestPath {
         adjacencyList.put(6, Arrays.asList(new Edge(6, 4, 5), new Edge(6, 5, 2)));
 
         DijkstrasShortestPath dijkstrasShortestPath = new DijkstrasShortestPath();
-        System.out.println("The shortest path from 0 to 6 is := " +
+        System.out.println("The shortest path from 0 to 6 using usual dijkstra is := " +
                 dijkstrasShortestPath.shortestPath(adjacencyList, 0, 6));
+
+
+        adjacencyList = new HashMap<>();
+        adjacencyList.put(0, Arrays.asList(new Edge(0, 1, 3), new Edge(0, 2, 5)));
+        adjacencyList.put(1, Arrays.asList(new Edge(1, 3, 3)));
+        adjacencyList.put(2, Arrays.asList(new Edge(2, 4, 5)));
+        adjacencyList.put(3, Arrays.asList(new Edge(3, 4, 3)));
+        adjacencyList.put(4, new ArrayList<>());
+        System.out.println("The shortest path from 0 to 4 using bi-directional dijkstra is := " +
+                dijkstrasShortestPath.bidirectionalShortestPath(adjacencyList, 0, 4));
     }
 
     private int shortestPath(Map<Integer, List<Edge>> adjacencyList, int start, int dest) {
 
         if (adjacencyList == null || adjacencyList.size() == 0) return -1;
 
-        int n = adjacencyList.size(), w = 0;
+        int n = adjacencyList.size();
         int[] dist = new int[n];
         Edge cur;
-        boolean[] visited = new boolean[n];
         PriorityQueue<Edge> pq = new PriorityQueue<>();
 
         for (int i = 0; i < n; ++i) dist[i] = Integer.MAX_VALUE;
         for (Edge edge : adjacencyList.get(start)) pq.offer(edge);
 
         dist[start] = 0;
-        visited[start] = true;
 
-        while (!visited[dest] && !pq.isEmpty()) {
+        while (!pq.isEmpty()) {
             cur = pq.poll();
-            w = cur.w;
 
-            if (!visited[cur.end]) {
-                dist[cur.end] = dist[cur.start] + w;
+            if (dist[cur.end] > dist[cur.start] + cur.w) {
+                dist[cur.end] = dist[cur.start] + cur.w;
                 for (Edge edge : adjacencyList.get(cur.end)) pq.offer(edge);
-                visited[cur.end] = true;
             }
         }
 
         return dist[dest];
+    }
+
+    //incomplete
+    private int bidirectionalShortestPath(Map<Integer, List<Edge>> adjacencyList, int start, int dest) {
+        int n = adjacencyList.size();
+        int[] fDist = new int[n];
+        int[] bDist = new int[n];
+        int[] fParent = new int[n];
+        int[] bParent = new int[n];
+        int intermediate = 0, temp = 0, dist = 0;
+        Edge cur;
+        PriorityQueue<Edge> fQueue = new PriorityQueue<>();
+        PriorityQueue<Edge> bQueue = new PriorityQueue<>();
+        Map<Integer, List<Edge>> bAdjacencyList = new HashMap<>();
+        processBackwardEdges(adjacencyList, bAdjacencyList);
+
+        Arrays.fill(fDist, Integer.MAX_VALUE);
+        Arrays.fill(bDist, Integer.MAX_VALUE);
+
+        Arrays.fill(fParent, -1);
+        Arrays.fill(bParent, -1);
+
+        fDist[start] = 0;
+        bDist[dest] = 0;
+
+        for (Edge edge : adjacencyList.get(start)) fQueue.offer(edge);
+        for (Edge edge : bAdjacencyList.get(dest)) bQueue.offer(edge);
+
+        while (!fQueue.isEmpty() && !bQueue.isEmpty()) {
+            if (fQueue.peek() != null && bQueue.peek() != null && fQueue.peek().start == bQueue.peek().end) {
+                intermediate = fQueue.peek().start;
+                break;
+            }
+
+            cur = fQueue.poll();
+            if (fDist[cur.end] > fDist[cur.start] + cur.w) {
+                fDist[cur.end] = fDist[cur.start] + cur.w;
+                fParent[cur.end] = cur.start;
+                for (Edge edge : adjacencyList.get(cur.end)) fQueue.offer(edge);
+            }
+
+            cur = bQueue.poll();
+            if (bDist[cur.start] > bDist[cur.end] + cur.w) {
+                bDist[cur.start] = bDist[cur.end] + cur.w;
+                bParent[cur.start] = cur.end;
+                for (Edge edge : adjacencyList.get(cur.start)) bQueue.offer(edge);
+            }
+        }
+
+        temp = intermediate;
+        while (temp != start) {
+            dist += fDist[temp];
+            temp = fParent[temp];
+        }
+
+        temp = intermediate;
+        while (temp != dest) {
+            dist += bDist[temp];
+            temp = bParent[temp];
+        }
+
+        return dist;
+    }
+
+    private void processBackwardEdges(Map<Integer, List<Edge>> adjacencyList, Map<Integer, List<Edge>> bAdjacencyList) {
+        for (Map.Entry<Integer, List<Edge>> entry : adjacencyList.entrySet()) {
+            for (Edge edge : entry.getValue()) {
+                bAdjacencyList.putIfAbsent(edge.end, new ArrayList<>());
+                bAdjacencyList.get(edge.end).add(new Edge(edge.end, edge.start, edge.w));
+            }
+        }
     }
 
     static class Edge implements Comparable<Edge> {
