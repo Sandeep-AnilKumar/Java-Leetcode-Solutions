@@ -21,12 +21,9 @@ public class RedundantConnection {
         }
 
         private int find(int i) {
-            while (parent[i] != i) {
-                parent[i] = parent[parent[i]];
-                i = parent[i];
-            }
-
-            return i;
+            //path compression by halving
+            if (parent[i] == i) return i;
+            return parent[i] = find(parent[i]);
         }
 
         void union(int[] edge) {
