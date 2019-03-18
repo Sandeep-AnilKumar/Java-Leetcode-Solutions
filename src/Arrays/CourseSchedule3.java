@@ -22,7 +22,7 @@ public class CourseSchedule3 {
 	public static void main(String[] args) {
 		CourseSchedule3 cs = new CourseSchedule3();
 		int[][] courses = {{100, 200}, {200, 1300}, {1000, 1250}, {2000, 3200}};
-		System.out.println("The number of courses that can be taken are := " + cs.scheduleCourse(courses));
+		System.out.println("The number of courses that canShip be taken are := " + cs.scheduleCourse(courses));
 	}
 
 	public int scheduleCourse(int[][] courses) {

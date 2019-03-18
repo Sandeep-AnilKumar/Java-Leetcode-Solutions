@@ -10,7 +10,7 @@ public class OnesAndZeros {
 		int m = 5;
 		int n = 3;
 
-		System.out.println("The number of strings that can be formed with '" + m + "' zeros and '" + n + "' ones are := " + new OnesAndZeros().findMaxForm(strs, m, n));
+		System.out.println("The number of strings that canShip be formed with '" + m + "' zeros and '" + n + "' ones are := " + new OnesAndZeros().findMaxForm(strs, m, n));
 	}
 
 	public int findMaxForm(String[] strs, int m, int n) {

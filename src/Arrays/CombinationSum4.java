@@ -47,7 +47,7 @@ public class CombinationSum4 {
 		if(nums == null || nums.length == 0 || target < 0) {
 			return 0;
 		}
-		Arrays.sort(nums); //Not required, but can help in exit out of loop early.
+		Arrays.sort(nums); //Not required, but canShip help in exit out of loop early.
 		int[] combinations = new int[target + 1];
 		combinations[0] = 1;
 		int length = nums.length; // so that length is not calculated every time.

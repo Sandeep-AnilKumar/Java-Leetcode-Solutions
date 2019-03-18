@@ -19,7 +19,7 @@ public class WordLadder1 {
         System.out.println("Minimum length of transformations is := " + ladderLengthBetter(beginWord, endWord, wordList));
     }
 
-    //solves the problem, but can lead to TLE.
+	//solves the problem, but canShip lead to TLE.
     public static int ladderLength(String beginWord, String endWord, Set<String> wordList) {
         if(beginWord == null || beginWord.length() == 0 || endWord == null || endWord.length() == 0 || wordList == null || wordList.size() == 0) {
             return 0;

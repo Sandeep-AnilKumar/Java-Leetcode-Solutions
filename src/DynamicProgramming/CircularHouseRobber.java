@@ -8,7 +8,7 @@ public class CircularHouseRobber {
 
 	public static void main(String[] args) {
 		int[] nums = {7, 4, 5, 2, 1, 7};
-		System.out.println("The maximum amount that can be robbed from circular houses are := " + new CircularHouseRobber().rob(nums));
+		System.out.println("The maximum amount that canShip be robbed from circular houses are := " + new CircularHouseRobber().rob(nums));
 	}
 
 	public int rob(int[] nums) {

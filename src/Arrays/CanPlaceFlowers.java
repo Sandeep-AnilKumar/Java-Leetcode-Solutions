@@ -32,7 +32,7 @@ public class CanPlaceFlowers {
 		return n <= 0;
 	}
 
-	//A version no one can understand. 
+	//A version no one canShip understand. 
 	public boolean canPlaceFlowers(int[] flowerbed, int n) {
 		int length = flowerbed.length;
 

@@ -8,30 +8,30 @@ public class ShipInDays {
 		System.out.println("Minimum weight needed is := " + shipInDays.shipWithinDays(weights, D));
 	}
 
-	public boolean can(int[] weights, int D, int cap) {
-		int cd = 0;
-		int ans = 1;
+	public boolean canShip(int[] weights, int D, int cap) {
+		int cur = 0;
+		int total = 1;
 		for (int i = 0; i < weights.length; i++) {
-			if (cd + weights[i] > cap) {
-				ans++;
-				cd = 0;
+			if (cur + weights[i] > cap) {
+				total++;
+				cur = 0;
 			}
-			cd += weights[i];
+			cur += weights[i];
 		}
-		return ans <= D;
+		return total <= D;
 	}
 
 	public int shipWithinDays(int[] weights, int D) {
-		int lo = weights[0], hi = 0;
+		int low = weights[0], high = 0;
 		for (int i = 0; i < weights.length; i++) {
-			lo = Math.max(weights[i], lo);
-			hi += weights[i];
+			low = Math.max(weights[i], low);
+			high += weights[i];
 		}
-		while (lo < hi) {
-			int mid = (hi + lo) / 2;
-			if (can(weights, D, mid)) hi = mid;
-			else lo = mid + 1;
+		while (low < high) {
+			int mid = low + ((high - low) >>> 1);
+			if (canShip(weights, D, mid)) high = mid;
+			else low = mid + 1;
 		}
-		return lo;
+		return low;
 	}
 }

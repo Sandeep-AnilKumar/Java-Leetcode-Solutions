@@ -9,7 +9,7 @@ public class PerfectSquares {
 	{
 		int n = 13;
 		int count = numSquaresBFS(n);
-		System.out.println("The least count that can sum this number is :" + count);
+		System.out.println("The least count that canShip sum this number is :" + count);
 	}
 	public static int numSquares(int n)
 	{

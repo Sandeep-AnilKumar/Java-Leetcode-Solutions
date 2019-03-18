@@ -7,7 +7,7 @@ public class SurroundedRegions {
         if (board.length < 2 || board[0].length < 2)
             return;
         int m = board.length, n = board[0].length;
-        //Any 'O' connected to a boundary can't be turned to 'X', so ...
+		//Any 'O' connected to a boundary canShip't be turned to 'X', so ...
         //Start from first and last column, turn 'O' to '*'.
         for (int i = 0; i < m; i++) {
             if (board[i][0] == 'O')

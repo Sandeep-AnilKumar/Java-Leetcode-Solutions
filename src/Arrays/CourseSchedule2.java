@@ -14,7 +14,7 @@ public class CourseSchedule2 {
 		int coursesToFinish = 4;
 		boolean canFinish = canFinish(coursesToFinish, prerequisites);
 		if(canFinish) {
-			System.out.println("The courses can be finished, and the order is: -");
+			System.out.println("The courses canShip be finished, and the order is: -");
 			int ordering[] = findOrder(coursesToFinish, prerequisites);
 			for(int i = 0; i < ordering.length; i++) {
 				System.out.print(ordering[i] + ", ");
@@ -55,7 +55,7 @@ public class CourseSchedule2 {
 				}
 			}
 		}
-		return count == numCourses ? true : false;
+		return count == numCourses;
 	}
 
 	//BFS Solution.

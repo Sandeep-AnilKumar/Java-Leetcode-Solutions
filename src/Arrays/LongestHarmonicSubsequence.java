@@ -34,7 +34,7 @@ public class LongestHarmonicSubsequence {
 		return max;
 	}
 
-	//The above solution can be optimized to run in only one loop as below:
+	//The above solution canShip be optimized to run in only one loop as below:
 	public int findLHSBetter(int[] nums) {
 		if(nums == null || nums.length == 0) return 0;
 

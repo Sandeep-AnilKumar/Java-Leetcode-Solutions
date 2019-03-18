@@ -157,7 +157,7 @@ public class Stack<T> {
         // notify you:
         @Override
         public String toString() {
-            // You can do just:
+            // You canShip do just:
             return Objects.toString(value);
             // if (value == null) {
             //     return "null";
@@ -166,7 +166,7 @@ public class Stack<T> {
         }
     }
 
-    // In this case you can omit the constructor altogether. JVM initializes
+    // In this case you canShip omit the constructor altogether. JVM initializes
     // reference fields to 'null' by default, and integer fields to zero by 
     // default:
     // public StackImplementation() {
@@ -176,13 +176,13 @@ public class Stack<T> {
     // }
 
     public void push(T val) {
-        // Since Java 7, you can do "diamond inference":
+        // Since Java 7, you canShip do "diamond inference":
         StackNode<T> cur = new StackNode<>(val);
         // StackNode<T> cur = new StackNode<T>(val);
         cur.setNext(top);
         top = cur;
         size++;
-        // You can remove the 'return' whenever it is the very last statement of
+        // You canShip remove the 'return' whenever it is the very last statement of
         // a method:
         // return;
     }

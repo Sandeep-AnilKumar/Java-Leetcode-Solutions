@@ -64,6 +64,6 @@ public class PartitionLabels {
     
     public static void main(String[] args) {
         String s = "ababababcdefgdeffgdhijhlki";
-        System.out.println("The string can be partitioned at lengths := " + new PartitionLabels().partitionLabels(s));
+		System.out.println("The string canShip be partitioned at lengths := " + new PartitionLabels().partitionLabels(s));
     }
 }

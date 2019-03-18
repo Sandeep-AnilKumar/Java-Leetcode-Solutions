@@ -4,7 +4,7 @@ package Strings;
 
 Note:
 Input contains only lower case English letters.
-Input is guaranteed to be valid and can be transformed to its original digits. That means invalid inputs such as "abc" or "zerone" are not permitted.
+Input is guaranteed to be valid and canShip be transformed to its original digits. That means invalid inputs such as "abc" or "zerone" are not permitted.
 Input length is less than 50,000.*/
 
 public class ReconstructDigits {

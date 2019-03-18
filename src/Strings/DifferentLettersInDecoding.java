@@ -12,7 +12,7 @@ Given an encoded message containing digits, determine the total number of ways t
 For example,
 Given encoded message "12", it could be decoded as "AB" (1 2) or "L" (12).
 
-The number of different letters that can be formed are "3" (A,B,L).
+The number of different letters that canShip be formed are "3" (A,B,L).
  * 
  * 
  */

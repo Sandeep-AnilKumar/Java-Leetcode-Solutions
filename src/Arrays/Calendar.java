@@ -87,7 +87,7 @@ public class Calendar {
 			cur.offer(curInterval);
 
 			if(curInterval.start - prevEnd >= duration) {
-				System.out.println("The earliest calendar event for same duration can be added between " + prevEnd + " to " + curInterval.start);
+				System.out.println("The earliest calendar event for same duration canShip be added between " + prevEnd + " to " + curInterval.start);
 				while(!cur.isEmpty()) {
 					pq.offer(cur.poll());
 				}
@@ -99,7 +99,7 @@ public class Calendar {
 		while(!cur.isEmpty()) {
 			pq.offer(cur.poll());
 		}
-		System.out.println("The earliest calendar event for same duration can be added from " + prevEnd);
+		System.out.println("The earliest calendar event for same duration canShip be added from " + prevEnd);
 		return;
 	}
 

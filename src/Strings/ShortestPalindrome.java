@@ -67,7 +67,7 @@ public class ShortestPalindrome {
         //skip index 0, we will not match a string with itself
         for(int i = 1; i < s.length(); i++){
             if(s.charAt(index) == s.charAt(i)){
-                //we can extend match in prefix and postfix
+				//we canShip extend match in prefix and postfix
                 table[i] = table[i-1] + 1;
                 index ++;
             }else{
