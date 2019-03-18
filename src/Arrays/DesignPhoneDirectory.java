@@ -8,7 +8,7 @@ public class DesignPhoneDirectory {
     boolean[] numbers;
     int size;
     /** Initialize your data structure here
-	 @param maxNumbers - The maximum numbers that canShip be stored in the phone directory. */
+        @param maxNumbers - The maximum numbers that can be stored in the phone directory. */
     public DesignPhoneDirectory(int maxNumbers) {
         pq = new PriorityQueue<>((a, b) -> (a - b));
         numbers = new boolean[maxNumbers];

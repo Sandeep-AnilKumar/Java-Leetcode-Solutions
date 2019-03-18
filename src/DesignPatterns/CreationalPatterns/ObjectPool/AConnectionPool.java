@@ -1,6 +1,8 @@
 package DesignPatterns.CreationalPatterns.ObjectPool;
 
+import java.util.ConcurrentModificationException;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -54,7 +56,7 @@ public abstract class AConnectionPool<T> {
           } else {
             
             if (validate(connection)) {
-				System.out.println("Connection is valid and canShip be re-used");
+              System.out.println("Connection is valid and can be re-used");
               available.remove(connection);
               leased.put(connection, now);
               return connection;

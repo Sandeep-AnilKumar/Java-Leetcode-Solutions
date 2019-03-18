@@ -21,7 +21,7 @@ public class FirstMissingPositive {
 		}
 		int k = 1;
 
-		// Check from k=1 to see whether each index and value canShip be corresponding.
+		// Check from k=1 to see whether each index and value can be corresponding.
 		while (k < n && nums[k] == k)
 			k++;
 

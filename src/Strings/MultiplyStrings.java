@@ -5,7 +5,7 @@ import java.math.BigInteger;
 /*
  * Given two numbers represented as strings, return multiplication of the numbers as a string.
 
-Note: The numbers canShip be arbitrarily large and are non-negative.
+Note: The numbers can be arbitrarily large and are non-negative.
  * 
  * 
  */
