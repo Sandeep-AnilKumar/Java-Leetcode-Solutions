@@ -1,6 +1,7 @@
 package Arrays;
 
-import java.util.TreeSet;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MinimumRectangle {
 	public static void main(String[] args) {
@@ -10,78 +11,22 @@ public class MinimumRectangle {
 	}
 
 	public int minAreaRect(int[][] points) {
-		TreeSet<int[]> x = new TreeSet<>((a, b) -> {
-			if (a[0] == b[0]) {
-				return a[1] - b[1];
-			}
-			return a[0] - b[0];
-		});
+		Set<Integer> pointSet = new HashSet<>();
+		for (int[] point : points)
+			pointSet.add(40001 * point[0] + point[1]);
 
-		TreeSet<int[]> y = new TreeSet<>((a, b) -> {
-			if (a[1] == b[1]) {
-				return a[0] - b[0];
-			}
-			return a[1] - b[1];
-		});
-
-		for (int[] point : points) {
-			x.add(point);
-			y.add(point);
-		}
-
-		int[] nextX, nextY, diag;
-		int min = Integer.MAX_VALUE;
-
-		for (int[] point : points) {
-			nextX = x.higher(point);
-			nextY = y.higher(point);
-
-			if (nextX != null && nextY != null && nextX != nextY && nextX[0] == point[0] && nextY[1] == point[1]) {
-
-				diag = new int[]{nextY[0], nextX[1]};
-				if (x.contains(diag)) {
-					min = Math.min(min, (nextX[1] - point[1]) * (nextY[0] - point[0]));
+		int ans = Integer.MAX_VALUE;
+		for (int i = 0; i < points.length; ++i)
+			for (int j = i + 1; j < points.length; ++j) {
+				if (points[i][0] != points[j][0] && points[i][1] != points[j][1]) {
+					if (pointSet.contains(40001 * points[i][0] + points[j][1]) &&
+							pointSet.contains(40001 * points[j][0] + points[i][1])) {
+						ans = Math.min(ans, Math.abs(points[j][0] - points[i][0]) *
+								Math.abs(points[j][1] - points[i][1]));
+					}
 				}
 			}
 
-			nextX = x.lower(point);
-			nextY = y.lower(point);
-
-			if (nextX != null && nextY != null && nextX != nextY && nextX[0] == point[0] && nextY[1] == point[1]) {
-
-				diag = new int[]{nextY[0], nextX[1]};
-				if (x.contains(diag)) {
-					min = Math.min(min, (nextX[1] - point[1]) * (nextY[0] - point[0]));
-				}
-			}
-
-			nextX = x.lower(point);
-			nextY = y.higher(point);
-
-			if (nextX != null && nextY != null && nextX != nextY && nextX[0] == point[0] && nextY[1] == point[1]) {
-
-				diag = new int[]{nextY[0], nextX[1]};
-				if (x.contains(diag)) {
-					min = Math.min(min, (nextX[1] - point[1]) * (nextY[0] - point[0]));
-				}
-			}
-
-			nextX = x.higher(point);
-			nextY = y.lower(point);
-
-			if (nextX != null && nextY != null && nextX != nextY && nextX[0] == point[0] && nextY[1] == point[1]) {
-
-				diag = new int[]{nextY[0], nextX[1]};
-				if (x.contains(diag)) {
-					min = Math.min(min, (nextX[1] - point[1]) * (nextY[0] - point[0]));
-				}
-			}
-
-			if (min < 0) {
-				min = -min;
-			}
-		}
-
-		return min == Integer.MAX_VALUE ? 0 : min;
+		return ans < Integer.MAX_VALUE ? ans : 0;
 	}
 }
